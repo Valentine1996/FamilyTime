@@ -10,7 +10,19 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+                    //CheckStyle
+apply plugin: 'checkstyle'
 
+checkstyle {
+    toolVersion = '6.1.1'
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled true
+        xml.destination "checkStyleReports/myReport.xml"
+    }
+}
 jar {
     baseName = 'gs-spring-boot'
     version =  '0.1.0'
@@ -24,7 +36,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    // tag::jetty[]
+    // tag::jetty[]jetty
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
     }
@@ -34,8 +46,11 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     // end::actuator[]
     testCompile("junit:junit")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
+
+                //Configuration test environment
