@@ -1,4 +1,4 @@
-package com.familyTime.controller;
+package com.familytime.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

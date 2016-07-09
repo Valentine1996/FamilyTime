@@ -10,7 +10,9 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-                    //CheckStyle
+apply plugin: 'findbugs'
+apply plugin: "jacoco"
+                //CheckStyle
 apply plugin: 'checkstyle'
 
 checkstyle {
@@ -20,9 +22,44 @@ checkstyle {
 tasks.withType(Checkstyle) {
     reports {
         xml.enabled true
-        xml.destination "checkStyleReports/myReport.xml"
+        xml.destination "${buildDir}/reports/checkstyle/checkStyleReport.xml"
     }
 }
+                //Findbugs
+findbugs {
+    toolVersion = "3.0.1"
+    effort = "max"
+    reportLevel = "high"
+}
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled true
+        xml.destination "${buildDir}/reports/findbugs/findBugsReport.xml"
+    }
+}
+
+                //JaCoCo
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+}
+test {
+    jacoco {
+        append = false
+    }
+}
+
+jacocoTestReport {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled true
+        xml.destination "${buildDir}/jacocoReports/jacocoXML/jacocoXML.xml"
+        html.enabled true
+        html.destination "${buildDir}/jacocoReports/jacocoHtml"
+    }
+}
+
+
 jar {
     baseName = 'gs-spring-boot'
     version =  '0.1.0'
