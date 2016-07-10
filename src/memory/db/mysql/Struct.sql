@@ -32,13 +32,28 @@ USE family_time;
 /* //- SECTION :: TABLES -// */
 
 /** *** *** *** *** *** *** *** *** *** *
+ * Family
+ *  --- --- --- --- --- --- --- --- --- *
+ * Data about families
+*/
+CREATE TABLE family(
+  id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+
+  name        VARCHAR( 32 ) NOT NULL UNIQUE,
+
+  PRIMARY KEY( id )
+)
+  ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
  * User
  *  --- --- --- --- --- --- --- --- --- *
  * Data about users
 */
 
 CREATE TABLE user(
-  id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+  id          BIGINT(20) NOT NULL AUTO_INCREMENT,
+  family_id   BIGINT(20) NOT NULL,
 
   first_name	VARCHAR(32) NOT NULL,
   last_name 	VARCHAR(32) NOT NULL,
@@ -49,7 +64,11 @@ CREATE TABLE user(
 
   enabled BOOLEAN NOT NULL,
 
-  PRIMARY KEY( id )
+  PRIMARY KEY( id ),
+
+  FOREIGN KEY( family_id ) REFERENCES family( id )
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8;
 
 /** *** *** *** *** *** *** *** *** *** *
@@ -82,21 +101,6 @@ CREATE TABLE user_role(
     ON UPDATE CASCADE
     ON DELETE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8;
-
-
-/** *** *** *** *** *** *** *** *** *** *
- * Year
- *  --- --- --- --- --- --- --- --- --- *
- * Data about available years of records
-*/
-CREATE TABLE family(
-  id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
-
-  name        VARCHAR( 32 ) NOT NULL,
-
-  PRIMARY KEY( id )
-)
-  ENGINE = InnoDB CHARACTER SET = utf8;
 
 /** *** *** *** *** *** *** *** *** *** *
  *  task type
