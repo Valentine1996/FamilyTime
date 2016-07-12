@@ -1,10 +1,8 @@
-/// *** *** Model :: Repository :: FamilyRepository *** *** *** *** *** *** *** ///
-
 /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
  *                                                                  *
  * @copyright 2016 (c), by Valentine
  *
- * @author Valentyn Namisnyk <valentunnamisnuk@gmail.com>
+ * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
  * @date 2016-07-10 12:00:59 :: 2014-07-08 12:24:37
  *
@@ -12,10 +10,10 @@
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.familytime.model.repository;
 
 import com.familytime.model.entity.Family;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -23,5 +21,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @version 1.0
  */
-public interface FamilyRepository extends JpaRepository<Family, Long > {
+public interface FamilyRepository extends JpaRepository<Family, Long> {
 }
