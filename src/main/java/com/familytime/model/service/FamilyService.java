@@ -1,10 +1,8 @@
-/// *** *** Model :: Service :: FamilyService *** *** *** *** *** *///
-
 /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
  *                                                                  *
  * @copyright 2016 (c), by Valentine
  *
- * @author Valentyn Namisnyk <valentunnamisnuk@gmail.com>
+ * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
  * @date 2016-07-10 12:35:15 :: 2016-07-10 12:45:05
  *
@@ -12,7 +10,6 @@
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.familytime.model.service;
 
 import com.familytime.model.entity.Family;
@@ -20,16 +17,17 @@ import com.familytime.model.entity.Family;
 import java.util.List;
 
 public interface FamilyService {
+
     //- SECTION :: MAIN -//
     /**
      * Find families for page
      *
-     * @return List < Family > List of families
+     * @return List < Family > List of families.
      */
     public List<Family> findAll();
 
     /**
-     * Create
+     * Create a new family.
      *
      * @param family Data for create new Family
      * @return Created family
@@ -37,7 +35,7 @@ public interface FamilyService {
     public Family create( Family family );
 
     /**
-     * Find family by id
+     * Find family by id.
      *
      * @param id Unique identificator
      * @return Family Found
@@ -45,7 +43,7 @@ public interface FamilyService {
     public Family find( Long id );
 
     /**
-     * Update
+     * Update the existed family.
      *
      * @param family Family for update
      * @return Family Updated
@@ -53,7 +51,7 @@ public interface FamilyService {
     public Family update( Family family );
 
     /**
-     * Delete
+     * Delete the existed family.
      *
      * @param id Identificator of family
      */

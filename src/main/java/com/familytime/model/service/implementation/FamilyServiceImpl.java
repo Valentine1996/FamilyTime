@@ -1,38 +1,40 @@
-/// ***  Model :: Service :: Implementation :: FamilyServiceImpl *///
 /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
  *                                                                  *
  * @copyright 2016 (c), by Valentine
  *
- * @author Valentyn Namisnyk <valentunnamisnuk@gmail.com>
+ * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
- * @date 2016-07-10 12:50:40 :: 2016-07-10 09:20:21
+ * @date 2016-07-10 12:50:40 :: 2016-07-10 12:55:40
  *
- * @address /Ukraine/Ivano-Frankivsk/Rozhniw */
+ * @address /Ukraine/Ivano-Frankivsk/Rozhniw
+ *                                                                  *
+ *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 package com.familytime.model.service.implementation;
 
 import com.familytime.model.entity.Family;
 import com.familytime.model.repository.FamilyRepository;
 import com.familytime.model.service.FamilyService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * Implementation of family service
+ * Implementation of family service.
  *
  * @version 1.0
  */
 @Service
 public class FamilyServiceImpl implements FamilyService {
-    
+
     @Autowired
     FamilyRepository familyRepository;
     /**
-     * Find families for page
+     * Find families for page.
      *
-     * @return List < Family > List of families
+     * @return List < Family > List of families.
      */
     @Override
     public List<Family> findAll() {
@@ -40,9 +42,9 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     /**
-     * Create
+     * Create the existed family.
      *
-     * @param family Data for creating new Family
+     * @param family Data for creating new family
      * @return Created family
      */
     @Override
@@ -51,7 +53,7 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     /**
-     * Find family by id
+     * Find family by id.
      *
      * @param id Unique identificator
      * @return Family Found
@@ -62,10 +64,10 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     /**
-     * Update
+     * Update the existed family.
      *
      * @param family Family for update
-     * @return Family Updated
+     * @return Family Updated family
      */
     @Override
     public Family update(Family family) {
@@ -73,7 +75,7 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     /**
-     * Delete
+     * Delete the existed family.
      *
      * @param id Identificator of family
      */

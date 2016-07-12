@@ -1,37 +1,40 @@
-/// *** *** Model :: Entity :: Family *** *** *** *** *** *** *** ///
-
 /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
  *                                                                  *
  * @copyright 2016 (c), by Valentine
  *
- * @author Valentyn Namisnyk <valentunnamisnuk@gmail.com>
+ * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
- * @date 2016-07-10 12:00:59 :: 2014-07-08 12:24:37
+ * @date 2016-07-10 15:00:59 :: 2014-07-08 12:15:37
  *
  * @address /Ukraine/Ivano-Frankivsk/Rozhniw
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.familytime.model.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect table family from persistence layout
+ * Class for reflect table Family from persistence layout.
  *
  * @version 1.0
  */
-@SuppressWarnings( "serial" )
+@SuppressWarnings("serial")
 @Entity
 @Table(
     name = "family"
-)
+    )
 public class Family implements Serializable {
+
     @Id
     @GeneratedValue
     @Column( name = "id" )
@@ -44,16 +47,16 @@ public class Family implements Serializable {
     protected String name;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Family() {
     }
 
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param name
+     * @param name Name of the family
      */
     public Family(String name) {
         this.name = name;
@@ -62,7 +65,7 @@ public class Family implements Serializable {
     //- SECTION :: GET -//
     
     /**
-     * Get ID of family
+     * Get ID of family.
      *
      * @return Long ID of family
      */
@@ -71,7 +74,7 @@ public class Family implements Serializable {
     }
 
     /**
-     * Get name of family
+     * Get name of family.
      *
      * @return String accounting system
      */
@@ -80,19 +83,20 @@ public class Family implements Serializable {
     }
 
     //- SECTION :: SET -//
+    
     /**
-     * Set ID of family
+     * Set ID of family.
      *
-     * @param id
+     * @param id Id of the family
      */
     public void setId(Long id) {
         this.id = id;
     }
     
     /**
-     * Set name of family
+     * Set name of family.
      *
-     * @param name
+     * @param name Name of the family
      */
     public void setName(String name) {
         this.name = name;
