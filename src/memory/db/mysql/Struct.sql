@@ -57,12 +57,17 @@ CREATE TABLE user(
 
   first_name	VARCHAR(32) NOT NULL,
   last_name 	VARCHAR(32) NOT NULL,
+  middle_name VARCHAR(32) NOT NULL,
 
   username 		VARCHAR(32) NOT NULL,
   email 			VARCHAR(32) NOT NULL,
-  password 		VARCHAR(32) NOT NULL,
+  password 		VARCHAR(80) NOT NULL,
 
-  enabled BOOLEAN NOT NULL,
+  age         INTEGER(3) NOT NULL,
+  gender      BOOLEAN NOT NULL,
+  
+  isParent    BOOLEAN NOT NULL,
+  isActive    BOOLEAN NOT NULL,
 
   PRIMARY KEY( id ),
 
@@ -93,6 +98,8 @@ CREATE TABLE user_role(
 
   role_id       BIGINT( 20 ) NOT NULL,
 
+  UNIQUE (user_id, role_id),
+  
   FOREIGN KEY( user_id ) REFERENCES user( id )
     ON UPDATE CASCADE
     ON DELETE CASCADE,
@@ -188,7 +195,7 @@ CREATE TABLE task(
 
   performer_id		BIGINT( 20 ) NOT NULL,
 
-  has_subtasks	  BOOLEAN NOT NULL DEFAULT false,
+  has_subtasks	  BOOLEAN NOT NULL DEFAULT FALSE,
 
   parent_id				BIGINT( 20 ),
 

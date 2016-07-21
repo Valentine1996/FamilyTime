@@ -1,12 +1,9 @@
 package com.familytime.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -16,7 +13,6 @@ import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -25,22 +21,20 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-
 /**
  * Persistence for test environment.
  */
 @Profile("tests")
+@Configuration
 @ComponentScan("com.familytime")
-@EnableAutoConfiguration(exclude = { DataSourceTransactionManagerAutoConfiguration.class,
-    DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 @EnableJpaRepositories("com.familytime.model.repository")
 @EnableTransactionManagement
 public class PersistenceTest {
 
-    @Value("classpath:config/HSQL/insert-data.sql")
+    @Value("classpath:config/H2/insert-data.sql")
     private Resource h2DataScript;
 
-    @Value("classpath:config/HSQL/clean-data.sql")
+    @Value("classpath:config/H2/clean-data.sql")
     private Resource h2CleanerScript;
 
     /**
@@ -51,16 +45,11 @@ public class PersistenceTest {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource h2DataSource = new DriverManagerDataSource();
-        h2DataSource.setDriverClassName("org.h2.Driver");
-        h2DataSource.setUrl("jdbc:h2:mem:test/familytime;DB_CLOSE_DELAY=-1");
+        h2DataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+        h2DataSource.setUrl("jdbc:hsqldb:mem:test/familytime;DB_CLOSE_DELAY=-1");
 
         h2DataSource.setUsername("sa");
         h2DataSource.setPassword("");
-
-        Properties properties = new Properties();
-        properties.put("hibernate.hbm2ddl.auto", "create");
-        h2DataSource.setConnectionProperties(properties);
-
 
         return h2DataSource;
     }
@@ -74,14 +63,13 @@ public class PersistenceTest {
     public EntityManagerFactory entityManagerFactory() {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.H2);
         vendorAdapter.setGenerateDdl(true);
-        vendorAdapter.setShowSql(true);
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("com.familytime");
         factory.setDataSource(dataSource());
+        factory.setJpaProperties(getHibernateProperties());
         factory.afterPropertiesSet();
 
         return factory.getObject();
@@ -112,7 +100,6 @@ public class PersistenceTest {
         initializer.setDataSource(dataSource);
 
         initializer.setDatabasePopulator(databasePopulator());
-        initializer.setDatabaseCleaner(databaseCleaner());
         return initializer;
     }
 
@@ -127,14 +114,12 @@ public class PersistenceTest {
         return populator;
     }
 
-    /**
-     * Database cleaner config.
-     *
-     * @return DataSourceInitializer
-     */
-    private DatabasePopulator databaseCleaner() {
-        final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScript(h2CleanerScript);
-        return populator;
+    private Properties getHibernateProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+        properties.put("hibernate.show_sql", true);
+        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+
+        return properties;
     }
 }

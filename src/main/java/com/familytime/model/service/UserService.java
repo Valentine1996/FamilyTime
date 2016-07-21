@@ -4,7 +4,7 @@
  *
  * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
- * @date 2016-07-10 12:35:15 :: 2016-07-10 12:45:05
+ * @date 2016-18-07 18:51:40 :: 2016-18-07 18:56:40
  *
  * @address /Ukraine/Ivano-Frankivsk/Rozhniw
  *                                                                  *
@@ -12,48 +12,48 @@
 
 package com.familytime.model.service;
 
-import com.familytime.model.entity.Family;
+import com.familytime.model.entity.User;
 
 import java.util.List;
 
-public interface FamilyService {
+public interface UserService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find families for page
+     * Find users for page
      *
-     * @return List < Family > List of families.
+     * @return List < User > List of users.
      */
-    public List<Family> findAll();
+    public List<User> findAll();
 
     /**
-     * Create a new family.
+     * Create a new user.
      *
-     * @param family Data for creating new family
-     * @return Family Created
+     * @param user Data for creating new user
+     * @return User Created
      */
-    public Family create( Family family );
+    public User create( User user );
 
     /**
-     * Find family by id.
+     * Find user by id.
      *
      * @param id Unique identificator
-     * @return Family Found
+     * @return User Found
      */
-    public Family find( Long id );
+    public User find( Long id );
 
     /**
-     * Update the existed family.
+     * Update the existed user.
      *
-     * @param family Family for update
-     * @return Family Updated
+     * @param user User for update
+     * @return User Updated
      */
-    public Family update( Family family );
+    public User update( User user );
 
     /**
-     * Delete the existed family.
+     * Delete the existed user.
      *
-     * @param id Identificator of family
+     * @param id Identificator of user
      */
     public void delete( Long id );
 }

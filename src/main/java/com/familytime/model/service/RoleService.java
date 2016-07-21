@@ -4,7 +4,7 @@
  *
  * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
- * @date 2016-07-10 12:35:15 :: 2016-07-10 12:45:05
+ * @date 2016-18-07 18:28:40 :: 2016-18-07 18:32:40
  *
  * @address /Ukraine/Ivano-Frankivsk/Rozhniw
  *                                                                  *
@@ -12,48 +12,48 @@
 
 package com.familytime.model.service;
 
-import com.familytime.model.entity.Family;
+import com.familytime.model.entity.Role;
 
 import java.util.List;
 
-public interface FamilyService {
+public interface RoleService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find families for page
+     * Find roles for page
      *
-     * @return List < Family > List of families.
+     * @return List < Role > List of roles.
      */
-    public List<Family> findAll();
+    public List<Role> findAll();
 
     /**
-     * Create a new family.
+     * Create a new role.
      *
-     * @param family Data for creating new family
-     * @return Family Created
+     * @param role Data for creating new role
+     * @return Role Created
      */
-    public Family create( Family family );
+    public Role create( Role role );
 
     /**
-     * Find family by id.
+     * Find role by id.
      *
      * @param id Unique identificator
-     * @return Family Found
+     * @return Role Found
      */
-    public Family find( Long id );
+    public Role find( Long id );
 
     /**
-     * Update the existed family.
+     * Update the existed role.
      *
-     * @param family Family for update
-     * @return Family Updated
+     * @param role Role for update
+     * @return Role Updated
      */
-    public Family update( Family family );
+    public Role update( Role role );
 
     /**
-     * Delete the existed family.
+     * Delete the existed role.
      *
-     * @param id Identificator of family
+     * @param id Identificator of role
      */
     public void delete( Long id );
 }
