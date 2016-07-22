@@ -1,0 +1,49 @@
+/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+ *                                                                  *
+ * @copyright 2016 (c), by Valentine
+ *
+ * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
+ *
+ * @date 2016-07-08 18:50:40 :: 2016-07-12 10:51:40
+ *
+ * @address /Ukraine/Ivano-Frankivsk/Rozhniw
+ *                                                                  *
+ *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+
+package com.familytime.controller;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Main test class. Example of sample tests.
+ */
+public class HelloRestControllerTest extends AbstractRestControllerTest {
+
+    /**
+     * Setup mock controllers object.
+     *
+     * @throws Exception General application exception
+     */
+    @Override
+    @Before
+    public void tearUp() throws Exception {
+
+        mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
+    }
+
+    @Test
+    public void getHello() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(equalTo("Greetings from Spring Boot!")));
+    }
+
+}

@@ -4,16 +4,13 @@
  *
  * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
- * @date 2016-07-10 15:00:59 :: 2014-07-08 12:15:37
+ * @date 2016-07-16 11:20:59 :: 2016-07-16 11:52:37
  *
  * @address /Ukraine/Ivano-Frankivsk/Rozhniw
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 package com.familytime.model.entity;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -24,80 +21,80 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect table Family from persistence layout.
+ * Class for reflect table Role from persistence layout.
  *
  * @version 1.0
  */
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 @Entity
 @Table(
-    name = "family"
+    name = "role"
     )
-public class Family implements Serializable {
+public class Role implements Serializable {
     /// *** Properties  *** ///
     @Id
     @GeneratedValue
     @Column( name = "id" )
     protected Long id;
 
+
     @NotNull
-    @NotEmpty
-    @Length( max = 32 )
-    @Column( name = "name", length = 16 , unique = true)
-    protected String name;
+    @Column(name = "authority", unique = true)
+    protected String authority;
 
     /**
      * Default constructor.
      */
-    public Family() {
+    public Role() {
     }
 
     /**
      * Constructor.
      *
-     * @param name Name of the family
+     * @param authority Role type
      */
-    public Family(String name) {
-        this.name = name;
+    public Role(String authority) {
+        this.authority = authority;
     }
 
     //- SECTION :: GET -//
-    
+
     /**
-     * Get ID of the family.
+     * Get ID of the authority.
      *
-     * @return Long ID of the family
+     * @return Long ID of family
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Get name of the family.
-     *
-     * @return String accounting system
+     * Get authority.
+     * 
+     * @return String Authority
      */
-    public String getName() {
-        return name;
+    public String getAuthority() {
+        return authority;
     }
 
     //- SECTION :: SET -//
-    
+
     /**
      * Set ID of the family.
      *
-     * @param id ID of the family
+     * @param id Id of the family
      */
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     /**
-     * Set name of the family.
+     * Set authority.
      *
-     * @param name Name of the family
+     * @param authority Authority type
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setAuthority(String authority) {
+        this.authority = authority;
+        
     }
 }

@@ -42,10 +42,10 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     /**
-     * Create the existed family.
+     * Create the family.
      *
      * @param family Data for creating new family
-     * @return Created family
+     * @return Family Created family
      */
     @Override
     public Family create(Family family) {

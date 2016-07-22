@@ -32,7 +32,7 @@ public class Persistence {
 
     /**
      * Data source (MySQL) config.
-     * 
+     *
      * @return DataSource
      */
     @Bean
@@ -47,7 +47,7 @@ public class Persistence {
 
     /**
      * Entity Manager Factory config.
-     * 
+     *
      * @return EntityManagerFactory
      */
     @Bean
