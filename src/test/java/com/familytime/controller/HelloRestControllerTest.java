@@ -13,6 +13,8 @@
 package com.familytime.controller;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,18 +34,19 @@ public class HelloRestControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception General application exception
      */
-    @Override
     @Before
     public void tearUp() throws Exception {
-
-        mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
+        mvc = MockMvcBuilders.standaloneSetup(new HelloController())
+            .apply(documentationConfiguration(this.restDocumentation))
+            .build();
     }
 
     @Test
     public void getHello() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().string(equalTo("Greetings from Spring Boot!")));
+            .andExpect(content().string(equalTo("Greetings from Spring Boot!")))
+            .andDo(document("index"));
     }
 
 }

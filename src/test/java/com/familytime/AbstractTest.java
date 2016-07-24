@@ -12,10 +12,14 @@
 
 package com.familytime;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+
 import com.familytime.config.PersistenceTest;
 
+import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -35,8 +39,20 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 public abstract class AbstractTest {
 
+    /**
+     * Rest documentation generator.
+     */
+    @Rule
+    public JUnitRestDocumentation restDocumentation =
+        new JUnitRestDocumentation( "build/generated-snippets" );
+    /**
+     * MVC mock use for test with real data base.
+     */
     protected MockMvc mvc;
-    
+
+    /**
+     * Application context.
+     */
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -47,8 +63,8 @@ public abstract class AbstractTest {
      */
     public void tearUp() throws Exception {
 
-        this.mvc = MockMvcBuilders.webAppContextSetup(
-            this.webApplicationContext
-        ).build();
+        this.mvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext)
+            .apply(documentationConfiguration(this.restDocumentation))
+            .build();
     }
 }
