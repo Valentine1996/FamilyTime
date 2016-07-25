@@ -34,9 +34,6 @@ public class PersistenceTest {
     @Value("classpath:config/H2/insert-data.sql")
     private Resource h2DataScript;
 
-    @Value("classpath:config/H2/clean-data.sql")
-    private Resource h2CleanerScript;
-
     /**
      * Data source (H2) config.
      *
