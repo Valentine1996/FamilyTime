@@ -43,6 +43,14 @@ public interface RoleService {
     public Role find( Long id );
 
     /**
+     * Find role by authority.
+     *
+     * @param authority Code of the role
+     * @return Role Found
+     */
+    public Role findByAuthority( String authority);
+    
+    /**
      * Update the existed role.
      *
      * @param role Role for update

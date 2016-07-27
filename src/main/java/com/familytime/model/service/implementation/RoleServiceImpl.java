@@ -64,6 +64,17 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
+     * Find role by authority.
+     *
+     * @param authority Code of the role
+     * @return Role Found
+     */
+    @Override
+    public Role findByAuthority(String authority) {
+        return this.roleRepository.findByAuthority(authority);
+    }
+
+    /**
      * Update the existed role.
      *
      * @param role Role for update
