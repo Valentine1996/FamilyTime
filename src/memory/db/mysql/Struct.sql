@@ -52,19 +52,19 @@ CREATE TABLE family(
 */
 
 CREATE TABLE user(
-  id          BIGINT(20) NOT NULL AUTO_INCREMENT,
-  family_id   BIGINT(20) NOT NULL,
+  id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+  family_id   BIGINT( 20 ) NOT NULL,
 
-  first_name	VARCHAR(32) NOT NULL,
-  last_name 	VARCHAR(32) NOT NULL,
-  middle_name VARCHAR(32) NOT NULL,
+  first_name	VARCHAR( 32 ) NOT NULL,
+  last_name 	VARCHAR( 32 ) NOT NULL,
+  middle_name VARCHAR( 32 ) NOT NULL,
 
-  username 		VARCHAR(32) NOT NULL,
-  email 			VARCHAR(32) NOT NULL,
-  password 		VARCHAR(80) NOT NULL,
+  username 		VARCHAR( 32 ) NOT NULL,
+  password 		VARCHAR( 80 ) NOT NULL,
 
-  age         INTEGER(3) NOT NULL,
+  birthday    DATE NOT NULL,
   gender      BOOLEAN NOT NULL,
+  locale      VARCHAR( 5 ) NOT NULL,
   
   isParent    BOOLEAN NOT NULL,
   isActive    BOOLEAN NOT NULL,

@@ -4,24 +4,20 @@
  *
  * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
- * @date 2016-18-08 18:24:50 :: 2016-18-08 18:30:50
+ * @date 2016-07-25 19:26:40 :: 2016-07-25 19:27:40
  *
  * @address /Ukraine/Ivano-Frankivsk/Rozhniw
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
-package com.familytime.model.repository;
-
-import com.familytime.model.entity.Role;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.familytime.security.model.entity;
 
 /**
- * Interface for work with persistence layout
+ * List of roles in system.
  *
  * @version 1.0
  */
-public interface RoleRepository extends JpaRepository<Role, Long> {
-
-    public Role findByAuthority(String authority);
+public enum Roles {
+    PARENT,
+    CHILD
 }

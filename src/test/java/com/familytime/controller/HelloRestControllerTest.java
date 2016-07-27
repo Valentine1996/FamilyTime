@@ -48,5 +48,4 @@ public class HelloRestControllerTest extends AbstractRestControllerTest {
             .andExpect(content().string(equalTo("Greetings from Spring Boot!")))
             .andDo(document("index"));
     }
-
 }
