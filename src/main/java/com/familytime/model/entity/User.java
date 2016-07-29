@@ -12,14 +12,18 @@
 
 package com.familytime.model.entity;
 
+import com.familytime.model.serializer.JsonDateSerializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,11 +42,9 @@ import javax.validation.constraints.NotNull;
  *
  * @version 1.0
  */
-@SuppressWarnings( "serial" )
 @Entity
 @Table(
     name = "user"
-
     )
 public class User implements Serializable {
     /// *** Properties  *** ///
@@ -51,8 +53,9 @@ public class User implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
+
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn( name = "family_id" )
     protected Family family;
 
@@ -72,27 +75,29 @@ public class User implements Serializable {
     protected String middleName;
 
     @NotNull
+    @Email
     @Length( min = 8, max = 32)
     @Column(name = "username", unique = true)
     protected String username;
-
-    @NotNull
-    @Email
-    @Column(name = "email", unique = true)
-    protected String email;
 
     @NotNull
     @Length( max = 80 )
     @Column(name = "password")
     protected String password;
 
+    @JsonSerialize( using = JsonDateSerializer.class )
     @NotNull
-    @Column(name = "age")
-    protected Integer age;
+    @Column(name = "birthday")
+    protected LocalDate birthday;
 
     @NotNull
     @Column(name = "gender")
     protected Boolean gender;
+
+    @NotBlank()
+    @Length(max = 5)
+    @Column(name = "locale", length = 5)
+    protected String locale;
 
     @NotNull
     @Column(name = "isParent")
@@ -138,32 +143,32 @@ public class User implements Serializable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param family User's family
      * @param firstName User's first name
      * @param lastName User's last name
      * @param middleName User's middle name
      * @param username Username
-     * @param email User's email
      * @param password User's password
-     * @param age User's age
+     * @param birthday User's birthday
      * @param gender User's gender
+     * @param locale User's locale
      * @param isParent User's parent status
      * @param isActive User's status
      * @param roles Set of the user's roles
      */
-    public User(Family family, String firstName, String lastName, String middleName, 
-                String username, String email, String password, Integer age, 
-                Boolean gender, Boolean isParent, Boolean isActive, List<Role> roles) {
+    public User(Family family, String firstName, String lastName, String middleName,
+                String username, String password, LocalDate birthday,
+                Boolean gender, String locale, Boolean isParent, Boolean isActive, List<Role> roles) {
         this.family = family;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.username = username;
-        this.email = email;
         this.password = password;
-        this.age = age;
+        this.birthday = birthday;
         this.gender = gender;
+        this.locale = locale;
         this.isParent = isParent;
         this.isActive = isActive;
         this.roles = roles;
@@ -181,7 +186,7 @@ public class User implements Serializable {
 
     /**
      * Get user's family.
-     * 
+     *
      * @return Family User's family
      */
     public Family getFamily() {
@@ -214,6 +219,7 @@ public class User implements Serializable {
     public String getMiddleName() {
         return middleName;
     }
+
     /**
      * Get username.
      *
@@ -221,15 +227,6 @@ public class User implements Serializable {
      */
     public String getUsername() {
         return username;
-    }
-
-    /**
-     * Get user's email.
-     *
-     * @return String User's email
-     */
-    public String getEmail() {
-        return email;
     }
 
     /**
@@ -242,12 +239,12 @@ public class User implements Serializable {
     }
 
     /**
-     * Get user's age.
+     * Get user's birthday.
      *
-     * @return Integer User's age
+     * @return LocaleLocalDate User's birthday
      */
-    public Integer getAge() {
-        return age;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
     /**
@@ -257,6 +254,15 @@ public class User implements Serializable {
      */
     public Boolean getGender() {
         return gender;
+    }
+
+    /**
+     * Get user's locale.
+     *
+     * @return String User's locale
+     */
+    public String getLocale() {
+        return locale;
     }
 
     /**
@@ -279,7 +285,7 @@ public class User implements Serializable {
 
     /**
      * Get user's roles.
-     * 
+     *
      * @return List List of the roles.
      */
     public List<Role> getRoles() {
@@ -343,39 +349,39 @@ public class User implements Serializable {
     }
 
     /**
-     * Set user's email.
+     * Set password.
      *
-     * @param email User's email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Set user's password.
-     *
-     * @param password User's password
+     * @param password password
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * Set user's age.
+     * Set user's birthday.
      *
-     * @param age User's password
+     * @param birthday User's birthday
      */
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     /**
      * Set user's gender.
      *
-     * @param gender User's password
+     * @param gender User's gender
      */
     public void setGender(Boolean gender) {
         this.gender = gender;
+    }
+
+    /**
+     * Set user's locale.
+     *
+     * @param locale User's locale
+     */
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     /**

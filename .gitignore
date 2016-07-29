@@ -30,7 +30,8 @@
 ## File-based project format:
 *.ipr
 *.iws
-
+##H2
+/mem/
 ## Plugin-specific files:
 
 # IntelliJ

@@ -110,12 +110,24 @@ dependencies {
     testCompile ("org.springframework.restdocs:spring-restdocs-mockmvc:1.1.0.RELEASE")
     //Hibernate + JPA
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.4.RELEASE'
-    compile 'org.hibernate:hibernate-core:4.3.6.Final'
+    compile 'org.hibernate:hibernate-core:5.1.0.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.1.0.Final'
+    compile group: 'org.hibernate', name: 'hibernate-java8', version: '5.1.0.Final'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     //Mysql
     compile 'mysql:mysql-connector-java:5.1.31'
     //HSQL
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.3.1'
+    //Jackson
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.7.1'
+    //Jayway
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.0.0'
+    //Spring Security
+    //Core
+    compile group: 'org.springframework.security', name: 'spring-security-core', version: '4.1.1.RELEASE'
 }
 
 task wrapper(type: Wrapper) {

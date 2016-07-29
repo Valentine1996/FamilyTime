@@ -43,7 +43,7 @@ public class Family implements Serializable {
     @NotNull
     @NotEmpty
     @Length( max = 32 )
-    @Column( name = "name", length = 16 , unique = true)
+    @Column( name = "name", unique = true)
     protected String name;
 
     /**
