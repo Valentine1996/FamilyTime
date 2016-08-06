@@ -17,6 +17,7 @@ import com.familytime.model.repository.FamilyRepository;
 import com.familytime.model.service.FamilyService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +40,25 @@ public class FamilyServiceImpl implements FamilyService {
     @Override
     public List<Family> findAll() {
         return this.familyRepository.findAll();
+    }
+
+    /**
+     * Find families for page.
+     *
+     * @param page  Number of page for return.
+     * @param limit Count items per page.
+     *
+     * @return List < Family > List of families.
+     */
+    @Override
+    public List<Family> findAll(int page, int limit) {
+        return familyRepository.findAll(
+            new PageRequest(
+                Math.max( page - 1, 0 ),
+                limit
+            )
+        )
+            .getContent();
     }
 
     /**

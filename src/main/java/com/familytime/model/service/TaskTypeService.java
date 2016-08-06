@@ -12,6 +12,7 @@
 
 package com.familytime.model.service;
 
+import com.familytime.model.entity.Family;
 import com.familytime.model.entity.TaskType;
 
 import java.util.List;
@@ -30,6 +31,16 @@ public interface TaskTypeService {
      * @return List < TaskType > List of task types.
      */
     public List<TaskType> findAll();
+
+    /**
+     * Find task types for page.
+     *
+     * @param page Number of page for return.
+     * @param limit Count items per page.
+     *
+     * @return List < TaskType > List of tasks.
+     */
+    public List<TaskType> findAll(int page, int limit);
 
     /**
      * Create new task type.

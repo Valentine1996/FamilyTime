@@ -20,11 +20,21 @@ public interface FamilyService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find families for page
+     * Find all families
      *
      * @return List < Family > List of families.
      */
     public List<Family> findAll();
+
+    /**
+     * Find families for page.
+     *
+     * @param page Number of page for return.
+     * @param limit Count items per page.
+     *
+     * @return List < Family > List of families.
+     */
+    public List<Family> findAll(int page, int limit);
 
     /**
      * Create a new family.
