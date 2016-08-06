@@ -43,6 +43,15 @@ public interface UserService {
     public User find( Long id );
 
     /**
+     * Find user by username and Password.
+     *
+     * @param username Username
+     * @param password Password
+     * @return User Found
+     */
+    public User findByUsername( String username );
+
+    /**
      * Update the existed user.
      *
      * @param user User for update

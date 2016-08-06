@@ -64,6 +64,17 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Find user by username.
+     *
+     * @param username Username
+     * @return User Found
+     */
+    @Override
+    public User findByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
+
+    /**
      * Update the existed user.
      *
      * @param user User for update
