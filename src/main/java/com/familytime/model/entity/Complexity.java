@@ -4,7 +4,7 @@
  *
  * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
- * @date 2016-08-06 11:33 :: 2016-08-06 11::37
+ * @date 2016-08-06 12:11 :: 2016-08-06 12::28
  *
  * @address /Ukraine/Ivano-Frankivsk/Rozhniw
  *                                                                  *
@@ -22,14 +22,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-/**
- * Class for reflect table user from persistence layout
- *
- * @version 1.0
- */
+
 @Entity
-@Table( name = "task_type")
-public class TaskType {
+@Table( name = "complexity")
+public class Complexity {
+
     /// *** Properties  *** ///
     @Id
     @GeneratedValue
@@ -42,9 +39,9 @@ public class TaskType {
     protected Family family;
 
     @NotNull
-    @Column( name = "short_name")
+    @Column( name = "type")
     @Length(max = 16)
-    protected String shortName;
+    protected String type;
 
     @Column( name = "description")
     protected String description;
@@ -52,62 +49,62 @@ public class TaskType {
     /**
      * Default constructor.
      */
-    public TaskType() {
+    public Complexity() {
     }
 
     /**
      * Constructor.
      *
      * @param family User's family
-     * @param shortName Task's short name
+     * @param type complexity's type
      */
-    public TaskType(Family family, String shortName) {
+    public Complexity(Family family, String type) {
         this.family = family;
-        this.shortName = shortName;
+        this.type = type;
     }
 
     /**
      * Constructor.
      *
      * @param family User's family
-     * @param shortName Task's short name
-     * @param description Task's description
+     * @param type complexity's type
+     * @param description complexity's description
      */
-    public TaskType(Family family, String shortName, String description) {
+    public Complexity(Family family, String type, String description) {
         this.family = family;
-        this.shortName = shortName;
+        this.type = type;
         this.description = description;
     }
 
     //- SECTION :: GET -//
 
     /**
-     * Get ID of the task_type.
-     * @return Long ID of the task
+     * Get ID of the complexity.
+     * @return Long ID of the complexity
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Get family of the task type.
-     * @return Family Task's family
+     * Get family of the complexity.
+     * @return Family Complexity's family
      */
     public Family getFamily() {
         return family;
     }
 
     /**
-     * Get short name of the task type.
-     * @return String Task's short name
+     * Get type of the complexity.
+     * @return String Complexity's type
      */
-    public String getShortName() {
-        return shortName;
+    public String getType() {
+        return type;
     }
 
     /**
-     * Get description of the task type.
-     * @return String Tasks's description
+     * Get description of the complexity.
+     * @return String Complexity's description
      */
     public String getDescription() {
         return description;
@@ -116,36 +113,36 @@ public class TaskType {
     //- SECTION :: SET -//
 
     /**
-     * Set ID of the task type.
+     * Set ID of the complexity.
      *
-     * @param id ID of the task type
+     * @param id ID of the complexity
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Set family of the task type.
+     * Set family of the complexity.
      *
-     * @param family ID of the task type
+     * @param family ID of the complexity
      */
     public void setFamily(Family family) {
         this.family = family;
     }
 
     /**
-     * Set short name of the task type.
+     * Set type of the complexity.
      *
-     * @param shortName of the task type
+     * @param type of the complexity
      */
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
-     * Set description of the task type.
+     * Set description of the complexity.family
      *
-     * @param description of the task type
+     * @param description of the complexity
      */
     public void setDescription(String description) {
         this.description = description;
