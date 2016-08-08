@@ -128,6 +128,9 @@ dependencies {
     //Spring Security
     //Core
     compile group: 'org.springframework.security', name: 'spring-security-core', version: '4.1.1.RELEASE'
+    //OAuth2
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.0.7.RELEASE'
+
 }
 
 task wrapper(type: Wrapper) {

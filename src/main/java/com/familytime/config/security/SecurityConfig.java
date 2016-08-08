@@ -14,13 +14,20 @@ package com.familytime.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Security config.
  */
+@Profile("default")
 @Configuration
+//@EnableWebSecurity
 public class SecurityConfig {
 
     /**
@@ -32,4 +39,14 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//            .antMatchers("/oauth/token").permitAll()
+//            .antMatchers("/oauth/authorize").permitAll()
+//            .antMatchers("/oauth/register").permitAll()
+//            .antMatchers("/").permitAll();
+//    }
 }
