@@ -17,6 +17,7 @@ import com.familytime.model.repository.UserRepository;
 import com.familytime.model.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,13 +33,32 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
     /**
-     * Find users for page.
+     * Find all users .
      *
      * @return List < User > List of users.
      */
     @Override
     public List<User> findAll() {
         return this.userRepository.findAll();
+    }
+
+    /**
+     * Find users for page.
+     *
+     * @param page  Number of page for return.
+     * @param limit Count items per page.
+     * 
+     * @return List < User > List of users.
+     */
+    @Override
+    public List<User> findAll(int page, int limit) {
+        return userRepository.findAll(
+            new PageRequest(
+                Math.max( page - 1, 0 ),
+                limit
+            )
+        )
+            .getContent();
     }
 
     /**

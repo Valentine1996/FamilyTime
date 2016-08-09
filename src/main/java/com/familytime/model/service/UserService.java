@@ -20,11 +20,21 @@ public interface UserService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find users for page
+     * Find all users.
      *
      * @return List < User > List of users.
      */
     public List<User> findAll();
+
+    /**
+     * Find users for page.
+     *
+     * @param page Number of page for return.
+     * @param limit Count items per page.
+     *
+     * @return List < User > List of users.
+     */
+    public List<User> findAll(int page, int limit);
 
     /**
      * Create a new user.
@@ -46,7 +56,6 @@ public interface UserService {
      * Find user by username and Password.
      *
      * @param username Username
-     * @param password Password
      * @return User Found
      */
     public User findByUsername( String username );
