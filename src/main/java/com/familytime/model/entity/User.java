@@ -159,7 +159,8 @@ public class User implements Serializable {
      */
     public User(Family family, String firstName, String lastName, String middleName,
                 String username, String password, LocalDate birthday,
-                Boolean gender, String locale, Boolean isParent, Boolean isActive, List<Role> roles) {
+                Boolean gender, String locale, Boolean isParent, Boolean isActive,
+                List<Role> roles) {
         this.family = family;
         this.firstName = firstName;
         this.lastName = lastName;

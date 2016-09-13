@@ -119,7 +119,7 @@ CREATE TABLE task_type(
 
   family_id       BIGINT( 20 ) NOT NULL,
 
-  short_name      VARCHAR( 16 ) NOT NULL,
+  shortName      VARCHAR( 16 ) NOT NULL,
 
   description     TEXT,
 
@@ -141,11 +141,11 @@ CREATE TABLE bonus_type(
 
   family_id       BIGINT( 20 ) NOT NULL,
 
-  short_name      VARCHAR( 16 ) NOT NULL,
+  shortName      VARCHAR( 16 ) NOT NULL,
 
   description     TEXT,
 
-  icon_name 			VARCHAR(16) NOT NULL,
+  iconName 			VARCHAR(16) NOT NULL,
 
   PRIMARY KEY( id ),
 

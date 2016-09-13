@@ -25,21 +25,21 @@ public interface BonusTypeService {
     public List<BonusType> findAll();
 
     /**
-     * Create new bonus type
+     * Create new bonus type.
      * @param bonusType Data for creating new bonus type
      * @return BonusType created
      */
     public BonusType create(BonusType bonusType);
 
     /**
-     * Updated existed bonus type
+     * Updated existed bonus type.
      * @param bonusType Data for updated bonus type
      * @return BonusType updated
      */
     public BonusType update(BonusType bonusType);
 
     /**
-     * Delete existed bonus type
+     * Delete existed bonus type.
      * @param id identificator for delete bonus type
      */
     public void delete(Long id);

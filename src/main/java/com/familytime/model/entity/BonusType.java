@@ -6,8 +6,17 @@ package com.familytime.model.entity;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 
 /**
  * Class for reflect table bonus_type from persistence layout
@@ -17,7 +26,7 @@ import javax.validation.constraints.NotNull;
 @SuppressWarnings( "serial" )
 @Entity
 @Table( name = "bonus_type")
-public class BonusType {
+public class BonusType implements Serializable {
 
     /// *** Properties  *** ///
     @Id
@@ -31,17 +40,17 @@ public class BonusType {
     protected Family family;
 
     @NotNull
-    @Column( name = "short_name")
+    @Column( name = "shortName")
     @Length(max = 16)
-    protected String short_name;
+    protected String shortName;
 
     @Column( name = "description")
     protected String description;
 
     @NotNull
-    @Column( name = "icon_name")
+    @Column( name = "iconName")
     @Length( max = 16)
-    protected String icon_name;
+    protected String iconName;
 
     /**
      * Default constructor.
@@ -53,28 +62,28 @@ public class BonusType {
      * Constructor.
      *
      * @param family Bonus's family
-     * @param short_name Bonus's short name
-     * @param icon_name Bonus's icon name
+     * @param shortName Bonus's short name
+     * @param iconName Bonus's icon name
      */
-    public BonusType(Family family, String short_name, String icon_name) {
+    public BonusType(Family family, String shortName, String iconName) {
         this.family = family;
-        this.short_name = short_name;
-        this.icon_name = icon_name;
+        this.shortName = shortName;
+        this.iconName = iconName;
     }
 
     /**
      * Constructor.
      *
      * @param family Bonus's family
-     * @param short_name Bonus's short name
+     * @param shortName Bonus's short name
      * @param description Bonus's description
-     * @param icon_name Bonus's icon name
+     * @param iconName Bonus's icon name
      */
-    public BonusType(Family family, String short_name, String description, String icon_name) {
+    public BonusType(Family family, String shortName, String description, String iconName) {
         this.family = family;
-        this.short_name = short_name;
+        this.shortName = shortName;
         this.description = description;
-        this.icon_name = icon_name;
+        this.iconName = iconName;
     }
 
     //- SECTION :: GET -//
@@ -99,8 +108,8 @@ public class BonusType {
      * Get short name of the bonus type.
      * @return String Bonus's short name
      */
-    public String getShort_name() {
-        return short_name;
+    public String getShortName() {
+        return shortName;
     }
 
     /**
@@ -115,15 +124,14 @@ public class BonusType {
      * Get icon name of the bonus type.
      * @return String Bonus's icon name
      */
-    public String getIcon_name() {
-        return icon_name;
+    public String getIconName() {
+        return iconName;
     }
-
 
     //- SECTION :: SET -//
 
     /**
-     * Set ID of the bonus type
+     * Set ID of the bonus type.
      *
      * @param id ID of the bonus type
      */
@@ -143,10 +151,10 @@ public class BonusType {
     /**
      * Set short name of the bonus type.
      *
-     * @param short_name of the bonus type
+     * @param shortName of the bonus type
      */
-    public void setShort_name(String short_name) {
-        this.short_name = short_name;
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     /**
@@ -161,9 +169,9 @@ public class BonusType {
     /**
      * Set icon name of the bonus type.
      *
-     * @param icon_name of the bonus type
+     * @param iconName of the bonus type
      */
-    public void setIcon_name(String icon_name) {
-        this.icon_name = icon_name;
+    public void setIconName(String iconName) {
+        this.iconName = iconName;
     }
 }
