@@ -7,6 +7,7 @@ package com.familytime.model.service.implementation;
 import com.familytime.model.entity.BonusType;
 import com.familytime.model.repository.BonusTypeRepository;
 import com.familytime.model.service.BonusTypeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ import java.util.List;
 public class BonusTypeImpl implements BonusTypeService {
 
     @Autowired
-    BonusTypeRepository bonus_typeRepository;
+    BonusTypeRepository bonusTypeRepository;
 
     /**
      * Find bonus type by ID.
@@ -30,7 +31,7 @@ public class BonusTypeImpl implements BonusTypeService {
      */
     @Override
     public BonusType findById(Long id) {
-        return this.bonus_typeRepository.findOne(id);
+        return this.bonusTypeRepository.findOne(id);
     }
 
     /**
@@ -39,7 +40,7 @@ public class BonusTypeImpl implements BonusTypeService {
      */
     @Override
     public List<BonusType> findAll() {
-        return this.bonus_typeRepository.findAll();
+        return this.bonusTypeRepository.findAll();
     }
 
     /**
@@ -49,7 +50,7 @@ public class BonusTypeImpl implements BonusTypeService {
      */
     @Override
     public BonusType create(BonusType bonusType) {
-        return this.bonus_typeRepository.save(bonusType);
+        return this.bonusTypeRepository.save(bonusType);
     }
 
     /**
@@ -59,7 +60,7 @@ public class BonusTypeImpl implements BonusTypeService {
      */
     @Override
     public BonusType update(BonusType bonusType) {
-        return this.bonus_typeRepository.save(bonusType);
+        return this.bonusTypeRepository.save(bonusType);
     }
 
     /**
@@ -68,6 +69,6 @@ public class BonusTypeImpl implements BonusTypeService {
      */
     @Override
     public void delete(Long id) {
-        this.bonus_typeRepository.delete(id);
+        this.bonusTypeRepository.delete(id);
     }
 }

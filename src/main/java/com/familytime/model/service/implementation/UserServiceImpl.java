@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
      *
      * @param page  Number of page for return.
      * @param limit Count items per page.
-     * 
      * @return List < User > List of users.
      */
     @Override

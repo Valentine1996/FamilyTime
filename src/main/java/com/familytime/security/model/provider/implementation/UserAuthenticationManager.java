@@ -39,9 +39,9 @@ public class UserAuthenticationManager implements AuthenticationManager {
     //- SECTION :: MAIN -//
     
     /**
-     * Attempts to authenticate the passed {@link org.springframework.security.core.Authentication} object, returning a
-     * fully populated <code>Authentication</code> object (including granted authorities)
-     * if successful.
+     * Attempts to authenticate the passed {@link org.springframework.security.core.Authentication}
+     * object, returning a fully populated <code>Authentication</code> object (including granted
+     * authorities) f successful.
      *
      * @param authentication the authentication request object
      * @return a fully authenticated object including credentials

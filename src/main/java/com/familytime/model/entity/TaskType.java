@@ -42,7 +42,7 @@ public class TaskType {
     protected Family family;
 
     @NotNull
-    @Column( name = "short_name")
+    @Column( name = "shortName")
     @Length(max = 16)
     protected String shortName;
 

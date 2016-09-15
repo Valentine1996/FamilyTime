@@ -58,7 +58,9 @@ public class Persistence {
         vendorAdapter.setDatabase(Database.MYSQL);
         vendorAdapter.setShowSql(true);
 
-        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean factory =
+                new LocalContainerEntityManagerFactoryBean();
+
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("com.familytime");
         factory.setDataSource(dataSource());
