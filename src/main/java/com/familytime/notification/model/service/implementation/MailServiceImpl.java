@@ -15,6 +15,7 @@ package com.familytime.notification.model.service.implementation;
 import com.familytime.notification.model.entity.Contact;
 import com.familytime.notification.model.entity.Message;
 import com.familytime.notification.model.service.NotificationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;

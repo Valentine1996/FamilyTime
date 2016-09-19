@@ -1,6 +1,5 @@
 package com.familytime.config;
 
-import com.familytime.config.security.MailConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -18,8 +17,8 @@ import java.util.Properties;
 
 @Profile("tests")
 @Configuration
+@EnableConfigurationProperties
 @PropertySource("classpath:config/mail/config.properties")
-@EnableAutoConfiguration
 public class MailConfigTest {
     @Autowired
     private Environment env;
@@ -42,7 +41,7 @@ public class MailConfigTest {
      * @return MailSender
      */
     @Bean
-    public JavaMailSenderImpl javaMailService() {
+    public MailSender javaMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
         javaMailSender.setHost(host);

@@ -12,9 +12,15 @@
 
 package com.familytime.model.service.implementation;
 
+import static org.springframework.util.Assert.notNull;
+
 import com.familytime.model.entity.User;
 import com.familytime.model.repository.UserRepository;
 import com.familytime.model.service.UserService;
+
+import com.familytime.notification.model.entity.Email;
+import com.familytime.notification.model.entity.EmailAddress;
+import com.familytime.notification.model.service.NotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    NotificationService notificationService;
     /**
      * Find all users .
      *
@@ -68,6 +77,24 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User create(User user) {
+        //- Save user to persistence -//
+        final User newUser = this.userRepository.save(user);
+
+        //- Check created user -//
+        notNull( newUser, "Cannot save user." );
+
+
+
+        //- Send notification-//
+        this.notificationService.send(
+                new EmailAddress("iffamilytime@gmail.com"),
+                new EmailAddress( newUser.getUsername()),
+                new Email(
+                        "Registration successfull",
+                        "Welcome to our big family"
+                )
+        );
+
         return this.userRepository.save(user);
     }
 

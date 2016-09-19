@@ -16,7 +16,6 @@ import com.familytime.model.entity.Role;
 import com.familytime.model.entity.User;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

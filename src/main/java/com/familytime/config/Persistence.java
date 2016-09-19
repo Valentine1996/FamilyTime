@@ -1,10 +1,12 @@
 package com.familytime.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -22,8 +24,6 @@ import javax.sql.DataSource;
 /**
  * Persistence.
  */
-@Profile("default")
-@Configuration
 @EnableJpaRepositories("com.familytime.model.repository")
 @EnableTransactionManagement
 @PropertySource("classpath:config/DB/config.properties")
@@ -80,5 +80,18 @@ public class Persistence {
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(entityManagerFactory());
         return txManager;
+    }
+
+    /**
+     * Bean for getting bundle messages.
+     *
+     * @return MessageSource
+     */
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:i18n/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 }
