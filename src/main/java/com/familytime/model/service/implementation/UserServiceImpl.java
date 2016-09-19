@@ -22,10 +22,15 @@ import com.familytime.notification.model.entity.Email;
 import com.familytime.notification.model.entity.EmailAddress;
 import com.familytime.notification.model.service.NotificationService;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -35,6 +40,17 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    /**
+     * Template manager.
+     */
+    @Autowired
+    private Handlebars templateManager;
+
+    /**
+     * Service for getting message.
+     */
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     UserRepository userRepository;
@@ -83,17 +99,28 @@ public class UserServiceImpl implements UserService {
         //- Check created user -//
         notNull( newUser, "Cannot save user." );
 
+        //- Send notification -//
+        try {
+            //- Prepare content -//
+            Template template = this.templateManager.compile( "signup" );
 
-
-        //- Send notification-//
-        this.notificationService.send(
-                new EmailAddress("iffamilytime@gmail.com"),
-                new EmailAddress( newUser.getUsername()),
+            //FIXME: get email more safely
+            //- Send notification-//
+            this.notificationService.send(
+                new EmailAddress( "iffamilytime@gmail.com" ),
+                new EmailAddress( newUser.getUsername() ),
                 new Email(
-                        "Registration successfull",
-                        "Welcome to our big family"
+                        this.messageSource.getMessage(
+                                "notification.security.signup.subject",
+                                null,
+                                LocaleContextHolder.getLocale()
+                        ),
+                        template.apply( newUser)
                 )
-        );
+            );
+        } catch ( IOException e ) {
+            //TODO add Logger
+        }
 
         return this.userRepository.save(user);
     }

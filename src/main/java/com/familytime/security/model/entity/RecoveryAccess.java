@@ -5,6 +5,9 @@ import com.familytime.model.entity.User;
 import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.time.OffsetDateTime;
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +19,6 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-
-import java.time.OffsetDateTime;
-import java.util.Objects;
 
 /**
  * Entity for persist requests about lost access.
@@ -34,8 +34,8 @@ import java.util.Objects;
                             "user_id"
                     }
             )
-    }
-)
+        }
+    )
 public class RecoveryAccess {
 
     /// *** Properties  *** ///

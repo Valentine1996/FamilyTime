@@ -98,16 +98,16 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService{
 
         //- Send notification-//
         this.notificationService.send(
-                new EmailAddress( "iffamilytime@gmail.com" ),
-                contact,
-                new Email(
-                    this.messageSource.getMessage(
-                            "notification.access-recovery.subject",
-                            null,
-                            LocaleContextHolder.getLocale()
-                    ),
-                    template.apply( hash )
-                )
+            new EmailAddress( "iffamilytime@gmail.com" ),
+            contact,
+            new Email(
+                this.messageSource.getMessage(
+                        "notification.access-recovery.subject",
+                        null,
+                        LocaleContextHolder.getLocale()
+                ),
+                template.apply( hash )
+            )
         );
     }
 
