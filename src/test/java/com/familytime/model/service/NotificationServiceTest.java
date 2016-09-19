@@ -1,6 +1,5 @@
 package com.familytime.model.service;
 
-import com.familytime.model.entity.User;
 import com.familytime.notification.model.entity.Email;
 import com.familytime.notification.model.entity.EmailAddress;
 import javax.mail.Message;
@@ -25,7 +24,7 @@ public class NotificationServiceTest extends AbstractServiceTest {
 
     /// *** Methods     *** ///
     /**
-     * Prepare environment for test security.
+     * Prepare environment for test notification.
      */
     @Before
     @Override
@@ -37,7 +36,9 @@ public class NotificationServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testSendMessage() throws MessagingException {
+    public void testSendingRecoveryLink() throws MessagingException {
+
+
         notificationService.send(
                 new EmailAddress("iffamilytime@gmail.com"),
                 new EmailAddress("valentunnamisnuk@gmail.com"),

@@ -3,7 +3,7 @@ INSERT INTO family (id, name) VALUES
   (2, 'Family2');
 
 INSERT INTO user(id, family_id, first_name, last_name, middle_name, username, password, birthday, gender, locale, isParent, isActive) VALUES
-  (1, 1, 'Valentyn','Namisnyk','Yaroslavovuch','valentunnamisnukukr.net','Softjourn1996',DATE '1996-02-26',TRUE,'uk_UA',TRUE,TRUE);
+  (1, 1, 'Valentyn','Namisnyk','Yaroslavovuch','valentunnamisnuk@gmail.com','Softjourn1996',DATE '1996-02-26',TRUE,'uk_UA',TRUE,TRUE);
 --   (2, 2, 'Oleh','Semankiv','Olehovuch','OlehSemankiv@ukr.net','Softjourn1887',TO_DATE(1987-03-15,'yyyy-MM-dd'),TRUE,'uk_UA',TRUE,TRUE);
 
 

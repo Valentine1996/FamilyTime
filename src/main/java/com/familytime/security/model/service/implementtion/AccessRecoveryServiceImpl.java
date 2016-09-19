@@ -12,13 +12,18 @@ import com.familytime.notification.model.service.NotificationService;
 import com.familytime.security.model.entity.RecoveryAccess;
 import com.familytime.security.model.service.AccessRecoveryService;
 
+import com.github.jknack.handlebars.Context;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
+import com.github.jknack.handlebars.context.MapValueResolver;
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.OffsetDateTime;
@@ -26,6 +31,11 @@ import java.util.UUID;
 
 @Service
 public class AccessRecoveryServiceImpl implements AccessRecoveryService{
+    /**
+     * Host name for access recovery link.
+     */
+    @Value("${app.hostname}")
+    String hostname;
     /**
      * Template manager.
      */
@@ -70,6 +80,7 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService{
      * @throws IOException  Cannot send via SMTP.
      */
 
+    @Transactional(rollbackFor = JDBCException.class)
     @Override
     public void lostAccess( Contact contact ) throws IOException {
         //- Create one-time link for recovery access -//
@@ -93,6 +104,14 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService{
                 )
         );
 
+        Object model = new Object();
+        Context context = Context
+                .newBuilder(model)
+                .combine("hostname", hostname)
+                .combine("hash", hash)
+                .resolver(MapValueResolver.INSTANCE)
+                .build();
+
         //- Prepare content -//
         Template template = this.templateManager.compile( "access-recovery" );
 
@@ -106,7 +125,7 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService{
                         null,
                         LocaleContextHolder.getLocale()
                 ),
-                template.apply( hash )
+                template.apply( context )
             )
         );
     }
@@ -117,6 +136,7 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService{
      * @param hash     One time hash.
      * @param password New password.
      */
+    @Transactional
     @Override
     public void restore( String hash, String password ) {
         //- Search request for recovering access -//
