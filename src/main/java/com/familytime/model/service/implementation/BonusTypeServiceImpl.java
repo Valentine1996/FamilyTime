@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 @Service
-public class BonusTypeImpl implements BonusTypeService {
+public class BonusTypeServiceImpl implements BonusTypeService {
 
     @Autowired
     BonusTypeRepository bonusTypeRepository;
