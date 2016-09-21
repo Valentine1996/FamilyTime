@@ -40,6 +40,6 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
             .scopes("read","write")
             .autoApprove(true)
             .authorizedGrantTypes("password","authorization_code", "refresh_token")
-            .accessTokenValiditySeconds(9000);
+            .accessTokenValiditySeconds(900);
     }
 }

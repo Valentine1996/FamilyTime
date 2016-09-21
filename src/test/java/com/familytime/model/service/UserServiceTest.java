@@ -16,6 +16,7 @@ import com.familytime.model.entity.Role;
 import com.familytime.model.entity.User;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,6 +34,7 @@ public class UserServiceTest extends AbstractServiceTest {
     public void tearUp() throws Exception {
         super.tearUp();
     }
+
 
     @Test(expected = org.springframework.dao.DataIntegrityViolationException.class)
     public void testSettingNewRoleForUser() {

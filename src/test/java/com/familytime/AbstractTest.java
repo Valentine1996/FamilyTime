@@ -19,6 +19,7 @@ import com.familytime.config.PersistenceTest;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,7 +36,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @ActiveProfiles("tests")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = PersistenceTest.class)
+@SpringApplicationConfiguration(classes = PersistenceTest.class)
 @WebAppConfiguration
 public abstract class AbstractTest {
 

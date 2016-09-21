@@ -12,14 +12,25 @@
 
 package com.familytime.model.service.implementation;
 
+import static org.springframework.util.Assert.notNull;
+
 import com.familytime.model.entity.User;
 import com.familytime.model.repository.UserRepository;
 import com.familytime.model.service.UserService;
 
+import com.familytime.notification.model.entity.Email;
+import com.familytime.notification.model.entity.EmailAddress;
+import com.familytime.notification.model.service.NotificationService;
+
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,9 +40,23 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    /**
+     * Template manager.
+     */
+    @Autowired
+    private Handlebars templateManager;
+
+    /**
+     * Service for getting message.
+     */
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    NotificationService notificationService;
     /**
      * Find all users .
      *
@@ -68,6 +93,35 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User create(User user) {
+        //- Save user to persistence -//
+        final User newUser = this.userRepository.save(user);
+
+        //- Check created user -//
+        notNull( newUser, "Cannot save user." );
+
+        //- Send notification -//
+        try {
+            //- Prepare content -//
+            Template template = this.templateManager.compile( "signup" );
+
+            //FIXME: get email more safely
+            //- Send notification-//
+            this.notificationService.send(
+                new EmailAddress( "iffamilytime@gmail.com" ),
+                new EmailAddress( newUser.getUsername() ),
+                new Email(
+                        this.messageSource.getMessage(
+                                "notification.security.signup.subject",
+                                null,
+                                LocaleContextHolder.getLocale()
+                        ),
+                        template.apply( newUser)
+                )
+            );
+        } catch ( IOException e ) {
+            //TODO add Logger
+        }
+
         return this.userRepository.save(user);
     }
 

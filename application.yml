@@ -3,7 +3,3 @@ server:
 
 spring:
   profiles: default
----
-spring:
-  profiles: tests
-    
