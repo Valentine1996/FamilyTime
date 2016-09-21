@@ -14,6 +14,7 @@ public interface BonusTypeService {
 
     /**
      * Find bonus type by ID
+     * @param id unique identificatos
      * @return BonusType found.
      */
     public BonusType findById(Long id);
