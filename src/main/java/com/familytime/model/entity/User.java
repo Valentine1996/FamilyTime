@@ -81,7 +81,7 @@ public class User implements Serializable {
     protected String username;
 
     @NotNull
-    @Length( max = 80 )
+    @Length( min = 8, max = 80 )
     @Column(name = "password")
     protected String password;
 

@@ -111,7 +111,7 @@ public class SecurityController {
             //- Persist -//
             return this.userService.create(newUser);
         } catch (DataIntegrityViolationException | IllegalArgumentException e ) {
-            response.setStatus( HttpServletResponse.SC_CONFLICT );
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
         }
 
         return null;

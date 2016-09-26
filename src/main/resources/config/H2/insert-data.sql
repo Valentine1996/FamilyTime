@@ -13,3 +13,5 @@ INSERT INTO role(id, authority) VALUES
 
 INSERT INTO user_role(user_id, role_id) VALUES
   (1, 1);
+
+-- INSERT INTO recovery_access(id,user_id,hash,expiredAt) VALUES

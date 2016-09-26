@@ -18,5 +18,6 @@ import org.springframework.context.annotation.Configuration;
  * Security test config.
  */
 @Configuration
-public class SecurityTestConfig  extends SecurityConfig {
+public class SecurityTestConfig  extends WebSecurityConfig {
+
 }
