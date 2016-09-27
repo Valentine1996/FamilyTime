@@ -21,17 +21,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 /**
  * Security config.
  */
 @Profile("default")
 @Configuration
-//@EnableWebSecurity
-public class SecurityConfig {
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
-     * ShaPasswordConfig.
+     * PasswordConfig.
      *
      * @return ShaPassword
      */
@@ -39,14 +40,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//            .antMatchers("/oauth/token").permitAll()
-//            .antMatchers("/oauth/authorize").permitAll()
-//            .antMatchers("/oauth/register").permitAll()
-//            .antMatchers("/").permitAll();
-//    }
 }

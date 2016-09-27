@@ -26,6 +26,13 @@ public class EmailAddress implements Contact {
 
 
     /// *** Methods     *** ///
+
+    /**
+     * Default.
+     */
+    public EmailAddress() {
+    }
+
     /**
      * Create a new E-mail contact.
      *
@@ -44,4 +51,17 @@ public class EmailAddress implements Contact {
     public String getAddress() {
         return this.address;
     }
+
+
+    /**
+     * Set address of contact.
+     *
+     * @return String
+     */
+    public void setAddress(String address) {
+
+        this.address = address;
+    }
+
+
 }

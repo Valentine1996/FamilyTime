@@ -157,4 +157,46 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService{
         this.accessRecoveryRepository.delete( recoveryAccess );
     }
 
+    /**
+     * Create a new recovery access.
+     *
+     * @param recoveryAccess Data for creating new family
+     * @return RecoveryAccess Created
+     */
+    @Override
+    public RecoveryAccess create(RecoveryAccess recoveryAccess) {
+        return this.accessRecoveryRepository.save(recoveryAccess);
+    }
+
+    /**
+     * Find the recovery access by hash.
+     *
+     * @param hash Access hash
+     * @return RecoveryAccess Found
+     */
+    @Override
+    public RecoveryAccess findByHash(String hash) {
+        return this.accessRecoveryRepository.findByHash(hash);
+    }
+
+    /**
+     * Delete by hash.
+     *
+     * @param hash Hash got from the link.
+     */
+    @Override
+    public void delete(String hash) {
+        this.accessRecoveryRepository.deleteByHash(hash);
+    }
+
+    /**
+     * Get valid access.
+     *
+     * @param hash Hash got from the link.
+     */
+    @Override
+    public RecoveryAccess getValidAccess(String hash) {
+        return this.accessRecoveryRepository.checkAccess(hash);
+    }
+
 }
