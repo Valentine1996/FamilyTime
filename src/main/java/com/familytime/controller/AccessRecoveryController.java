@@ -35,7 +35,7 @@ import javax.validation.Valid;
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/passRecovery/" )
+@RequestMapping( value = "/passRecovery" )
 public class AccessRecoveryController {
 
     @Autowired
@@ -47,7 +47,7 @@ public class AccessRecoveryController {
      * @param emailAddress Users email.
      * @param response     Http response.
      */
-    @RequestMapping( value = "forgotPass", method = RequestMethod.POST )
+    @RequestMapping( value = "/forgotPass", method = RequestMethod.POST )
     @ResponseBody
     public void requestRecoveryCheck(
             @RequestBody
@@ -72,7 +72,7 @@ public class AccessRecoveryController {
      * @param passwordRecoveryForm New password and hash.
      * @param response Http response.
      */
-    @RequestMapping( value = "changePass", method = RequestMethod.POST )
+    @RequestMapping( value = "/changePass", method = RequestMethod.POST )
     @ResponseBody
     public void changePassword(
             @RequestBody
@@ -96,7 +96,7 @@ public class AccessRecoveryController {
      *
      * @param hash One-time hash.
      */
-    @RequestMapping( value = "checkAccess", method = RequestMethod.POST )
+    @RequestMapping( value = "/checkAccess", method = RequestMethod.POST )
     @ResponseBody
     public void changePassword(
             @RequestBody
