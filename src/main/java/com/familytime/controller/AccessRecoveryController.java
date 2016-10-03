@@ -82,7 +82,8 @@ public class AccessRecoveryController {
 
         try {
             //Change user password
-            accessRecoveryService.restore(passwordRecoveryForm.getHash(), passwordRecoveryForm.getPassword());
+            accessRecoveryService.restore(passwordRecoveryForm.getHash(),
+                                          passwordRecoveryForm.getPassword());
 
             //- Success -//
             response.setStatus(HttpServletResponse.SC_OK);
