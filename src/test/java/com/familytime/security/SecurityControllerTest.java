@@ -37,6 +37,7 @@ import com.familytime.security.model.persistence.mock.RoleMock;
 import com.familytime.security.model.persistence.mock.UserMock;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -92,6 +93,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest{
      *
      * @throws Exception    General Exception of application.
      */
+
     @Test
     public void testSignUpActionSuccess() throws Exception {
         //- Mock service -//

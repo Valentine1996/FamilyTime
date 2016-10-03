@@ -77,7 +77,6 @@ public class AccessRecoveryServiceTest extends AbstractServiceTest {
     /**
      * Test saving invalid recovery access
      */
-
     @Test(expected = org.springframework.transaction.TransactionSystemException.class)
     public void negativeTestCheckingToken() {
         //- Generate one-time hash -//
