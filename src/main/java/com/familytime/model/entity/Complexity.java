@@ -14,6 +14,8 @@ package com.familytime.model.entity;
 
 import org.hibernate.validator.constraints.Length;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,9 +25,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+
 @Entity
 @Table( name = "complexity")
-public class Complexity {
+public class Complexity implements Serializable {
 
     /// *** Properties  *** ///
     @Id

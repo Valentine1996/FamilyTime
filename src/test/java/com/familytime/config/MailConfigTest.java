@@ -60,9 +60,12 @@ public class MailConfigTest {
      */
     private Properties getMailProperties() {
         Properties properties = new Properties();
-        properties.setProperty("mail.transport.protocol", env.getProperty("mail.transport.protocol"));
-        properties.setProperty("mail.smtp.auth", env.getProperty("mail.smtp.auth"));
-        properties.setProperty("mail.smtp.starttls.enable", env.getProperty("mail.smtp.starttls.enable"));
+        properties.setProperty("mail.transport.protocol",
+                                env.getProperty("mail.transport.protocol"));
+        properties.setProperty("mail.smtp.auth",
+                                env.getProperty("mail.smtp.auth"));
+        properties.setProperty("mail.smtp.starttls.enable",
+                                env.getProperty("mail.smtp.starttls.enable"));
         properties.setProperty("mail.debug", env.getProperty("mail.debug"));
         return properties;
     }

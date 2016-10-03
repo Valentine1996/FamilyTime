@@ -14,6 +14,8 @@ package com.familytime.model.entity;
 
 import org.hibernate.validator.constraints.Length;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +24,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 /**
  * Class for reflect table user from persistence layout
  *
@@ -29,7 +32,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table( name = "task_type")
-public class TaskType {
+public class TaskType implements Serializable {
     /// *** Properties  *** ///
     @Id
     @GeneratedValue
