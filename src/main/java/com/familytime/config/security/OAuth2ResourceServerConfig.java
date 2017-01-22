@@ -18,7 +18,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
         http.requestMatchers().antMatchers("/**")
                 .and().authorizeRequests()
                 .antMatchers("/passRecovery/**").permitAll()
-                .antMatchers("/signup").permitAll()
+                .antMatchers("/security/signup").permitAll()
                 .anyRequest().authenticated();
     }
 }
