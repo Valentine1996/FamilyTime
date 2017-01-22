@@ -5,6 +5,7 @@
 package com.familytime.model.service.implementation;
 
 import com.familytime.model.entity.BonusType;
+import com.familytime.model.entity.Family;
 import com.familytime.model.repository.BonusTypeRepository;
 import com.familytime.model.service.BonusTypeService;
 
@@ -41,6 +42,18 @@ public class BonusTypeServiceImpl implements BonusTypeService {
     @Override
     public List<BonusType> findAll() {
         return this.bonusTypeRepository.findAll();
+    }
+
+    /**
+     * Find all existed bonus types by user's family.
+     *
+     * @param family - User's family.
+     *
+     * @return List of bonus types.
+     */
+    @Override
+    public List<BonusType> findByFamily(Family family) {
+        return this.bonusTypeRepository.findByFamily(family);
     }
 
     /**

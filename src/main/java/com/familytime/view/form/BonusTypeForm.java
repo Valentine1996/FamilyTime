@@ -1,53 +1,29 @@
-/**
- * Created by Andrii Gaidychuk on 25.07.2016.
- */
+/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+ *                                                                  *
+ * @copyright 2016 (c), by Valentine
+ *
+ * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
+ *
+ * @date 2017-01-20 23:14:28
+ *
+ * @address /Ukraine/Ivano-Frankivsk/Rozhniw
+ *                                                                   *
+ *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
-package com.familytime.model.entity;
+package com.familytime.view.form;
 
 import org.hibernate.validator.constraints.Length;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-
 /**
- * Class for reflect table bonus_type from persistence layout
+ * Form for bonus type.
  *
  * @version 1.0
  */
-@SuppressWarnings( "serial" )
-@Entity
-@Table(
-    name = "bonus_type",
-    uniqueConstraints = {
-            @UniqueConstraint(
-                    columnNames = {
-                            "family_id",
-                            "id"
-                    }
-            )
-    })
-public class BonusType implements Serializable {
-
+public class BonusTypeForm {
     /// *** Properties  *** ///
-    @Id
-    @GeneratedValue
-    @Column( name = "id")
-    protected Long id;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn( name = "family_id")
-    protected Family family;
 
     @NotNull
     @Column( name = "short_name")
@@ -65,18 +41,16 @@ public class BonusType implements Serializable {
     /**
      * Default constructor.
      */
-    public BonusType() {
+    public BonusTypeForm() {
     }
 
     /**
      * Constructor.
      *
-     * @param family Bonus's family
      * @param shortName Bonus's short name
      * @param iconName Bonus's icon name
      */
-    public BonusType(Family family, String shortName, String iconName) {
-        this.family = family;
+    public BonusTypeForm(String shortName, String iconName) {
         this.shortName = shortName;
         this.iconName = iconName;
     }
@@ -84,35 +58,17 @@ public class BonusType implements Serializable {
     /**
      * Constructor.
      *
-     * @param family Bonus's family
      * @param shortName Bonus's short name
      * @param description Bonus's description
      * @param iconName Bonus's icon name
      */
-    public BonusType(Family family, String shortName, String description, String iconName) {
-        this.family = family;
+    public BonusTypeForm(String shortName, String description, String iconName) {
         this.shortName = shortName;
         this.description = description;
         this.iconName = iconName;
     }
 
     //- SECTION :: GET -//
-
-    /**
-     * Get ID of the bonus_type.
-     * @return Long ID of the Bonuses
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Get family of the bonus type.
-     * @return Family Bonus's family
-     */
-    public Family getFamily() {
-        return family;
-    }
 
     /**
      * Get short name of the bonus type.
@@ -139,24 +95,6 @@ public class BonusType implements Serializable {
     }
 
     //- SECTION :: SET -//
-
-    /**
-     * Set ID of the bonus type.
-     *
-     * @param id ID of the bonus type
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * Set family of the bonus type.
-     *
-     * @param family ID of the bonus type
-     */
-    public void setFamily(Family family) {
-        this.family = family;
-    }
 
     /**
      * Set short name of the bonus type.
