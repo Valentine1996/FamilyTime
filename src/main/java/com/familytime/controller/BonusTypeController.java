@@ -42,7 +42,7 @@ import javax.validation.Valid;
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/bonusType/" )
+@RequestMapping( value = "/bonusType" )
 public class BonusTypeController {
 
     /// *** Properties  *** ///
