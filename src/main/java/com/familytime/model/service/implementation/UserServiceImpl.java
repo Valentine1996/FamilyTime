@@ -28,7 +28,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -57,6 +59,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     NotificationService notificationService;
+
+    // Define the BCrypt workload to use when generating password hashes. 10-31 is a valid value.
+    private static int workload = 12;
     /**
      * Find all users .
      *
@@ -93,6 +98,11 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User create(User user) {
+
+        //Crypt password
+        String cryptedPassword = hashPassword(user.getPassword());
+        user.setPassword(cryptedPassword);
+
         //- Save user to persistence -//
         final User newUser = this.userRepository.save(user);
 
@@ -166,5 +176,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         this.userRepository.delete(id);
+    }
+
+    /**
+     * Method for crypting password.
+     *
+     * @param passwordPlainText
+     *
+     * @return Hashed password.
+     */
+    public static String hashPassword(String passwordPlainText) {
+        String salt = BCrypt.gensalt(workload);
+        String hashedPassword = BCrypt.hashpw(passwordPlainText, salt);
+
+        return hashedPassword;
     }
 }
