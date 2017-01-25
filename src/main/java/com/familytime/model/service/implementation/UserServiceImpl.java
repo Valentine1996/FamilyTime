@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
             //TODO add Logger
         }
 
-        return this.userRepository.save(user);
+        return null;
     }
 
     /**
