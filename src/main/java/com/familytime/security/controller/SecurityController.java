@@ -23,7 +23,6 @@ import com.familytime.security.view.form.RegistrationForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,8 +43,6 @@ public class SecurityController {
     /**
      * Encoder for create hash of password.
      */
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     //- SECTION :: SERVICES -//
     @Autowired
@@ -96,7 +93,7 @@ public class SecurityController {
                 registrationForm.getLastName(),
                 registrationForm.getMiddleName(),
                 registrationForm.getUsername(),
-                passwordEncoder.encode(registrationForm.getPassword()),
+                registrationForm.getPassword(),
                 registrationForm.getBirthday(),
                 registrationForm.getGender(),
                 registrationForm.getLocale(),
