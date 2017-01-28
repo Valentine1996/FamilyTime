@@ -30,7 +30,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -96,7 +96,9 @@ public class UserServiceImpl implements UserService {
      * @param user Data for creating new user
      * @return Role Created user
      */
+
     @Override
+    @Transactional()
     public User create(User user) {
 
         //Crypt password
