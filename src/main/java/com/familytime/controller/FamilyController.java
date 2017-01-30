@@ -37,6 +37,13 @@ public class FamilyController {
     @Autowired
     protected FamilyService familyService;
 
+    /// *** Methods     *** ///
+
+    /**
+     * Get list of families.
+     *
+     * @return List of families.
+     */
     @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK )
     @ResponseBody

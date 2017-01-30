@@ -121,14 +121,12 @@ public class User implements Serializable {
             @JoinColumn(
                 name = "user_id",
                 nullable = false,
-                unique = false,
                 updatable = false
                 )
             },
         inverseJoinColumns = {
             @JoinColumn(
                 name = "role_id",
-                unique = false,
                 nullable = false,
                 updatable = false
                 )

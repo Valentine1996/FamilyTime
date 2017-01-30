@@ -4,23 +4,27 @@
  *
  * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
  *
- * @date 2016-16-08 16:44:24 :: 2016-16-08 16:47:24
+ * @date 2017-20-01 19:35:40
  *
  * @address /Ukraine/Ivano-Frankivsk/Rozhniw
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
-package com.familytime.model.repository;
+package com.familytime.model.service;
 
-import com.familytime.model.entity.User;
+import com.familytime.model.entity.Family;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.User;
 
 /**
- * Interface for work with persistence layout
- *
- * @version 1.0
+ * Service for getting data from security context.
  */
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
+public interface SecurityService {
+
+    /**
+     * Get family of Logged person.
+     *
+     * @return Family of logged user.
+     */
+    public Family getFamilyOfLoggedUser();
 }
