@@ -92,6 +92,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest{
      *
      * @throws Exception    General Exception of application.
      */
+
     @Test
     public void testSignUpActionSuccess() throws Exception {
         //- Mock service -//

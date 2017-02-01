@@ -1,9 +1,12 @@
 package com.familytime.model.service;
 
+import static org.junit.Assert.assertEquals;
+
 import com.familytime.model.entity.User;
 import com.familytime.notification.model.entity.EmailAddress;
 import com.familytime.security.model.entity.RecoveryAccess;
 import com.familytime.security.model.service.AccessRecoveryService;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -16,7 +19,6 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
 
 /**
  * Testing email sending in prod. Do not modify.
@@ -52,7 +54,7 @@ public class AccessRecoveryServiceTest extends AbstractServiceTest {
     }
 
     /**
-     * Test getting valid access token
+     * Test getting valid access token.
      */
     @Test
     public void positiveTestCheckingToken() {
@@ -66,7 +68,8 @@ public class AccessRecoveryServiceTest extends AbstractServiceTest {
         User user =  userService.findByUsername("valentunnamisnuk@gmail.com");
 
         //Save access token
-        accessRecoveryService.create(new RecoveryAccess(user,hashForPositiveTest, OffsetDateTime.now().plusMinutes(15)));
+        accessRecoveryService.create(new RecoveryAccess(user,hashForPositiveTest,
+                                                        OffsetDateTime.now().plusMinutes(15)));
 
         //Check valid recovery access
         RecoveryAccess recoveryAccess = accessRecoveryService.getValidAccess(hashForPositiveTest);
@@ -75,9 +78,8 @@ public class AccessRecoveryServiceTest extends AbstractServiceTest {
     }
 
     /**
-     * Test saving invalid recovery access
+     * Test saving invalid recovery access.
      */
-
     @Test(expected = org.springframework.transaction.TransactionSystemException.class)
     public void negativeTestCheckingToken() {
         //- Generate one-time hash -//
@@ -90,6 +92,7 @@ public class AccessRecoveryServiceTest extends AbstractServiceTest {
         User user =  userService.findByUsername("valentunnamisnuk@gmail.com");
 
         //Save access token
-        accessRecoveryService.create(new RecoveryAccess(user,hashForNegativeTest, OffsetDateTime.now().minusMinutes(15)));
+        accessRecoveryService.create(new RecoveryAccess(user,hashForNegativeTest,
+                                                        OffsetDateTime.now().minusMinutes(15)));
     }
 }

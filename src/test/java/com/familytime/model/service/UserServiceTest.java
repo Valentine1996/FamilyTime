@@ -35,7 +35,6 @@ public class UserServiceTest extends AbstractServiceTest {
         super.tearUp();
     }
 
-
     @Test(expected = org.springframework.dao.DataIntegrityViolationException.class)
     public void testSettingNewRoleForUser() {
 
