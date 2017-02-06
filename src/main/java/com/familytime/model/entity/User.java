@@ -14,6 +14,7 @@ package com.familytime.model.entity;
 
 import com.familytime.model.serializer.JsonDateSerializer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -61,51 +62,52 @@ public class User implements Serializable {
     protected Family family;
 
     @NotNull
-    @Length( min = 2 , max = 32)
-    @Column(name = "first_name")
+    @Length( min = 2 , max = 32 )
+    @Column( name = "first_name" )
     protected String firstName;
 
     @NotNull
     @Length( min = 2 , max = 32)
-    @Column(name = "last_name")
+    @Column( name = "last_name" )
     protected String lastName;
 
     @NotNull
     @Length( min = 2 , max = 32)
-    @Column(name = "middle_name")
+    @Column( name = "middle_name" )
     protected String middleName;
 
     @NotNull
     @Email
     @Length( min = 8, max = 32)
-    @Column(name = "username", unique = true)
+    @Column( name = "username", unique = true )
     protected String username;
 
     @NotNull
     @Length( min = 8, max = 80 )
-    @Column(name = "password")
+    @Column( name = "password" )
+    @JsonIgnore
     protected String password;
 
     @JsonSerialize( using = JsonDateSerializer.class )
     @NotNull
-    @Column(name = "birthday")
+    @Column( name = "birthday" )
     protected LocalDate birthday;
 
     @NotNull
-    @Column(name = "gender")
+    @Column( name = "gender" )
     protected Boolean gender;
 
     @NotBlank()
-    @Length(max = 5)
-    @Column(name = "locale", length = 5)
+    @Length( max = 5 )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @NotNull
-    @Column(name = "isParent")
+    @Column( name = "isParent" )
     protected Boolean isParent;
 
     @NotNull
-    @Column(name = "isActive", nullable = false)
+    @Column( name = "isActive", nullable = false )
     protected Boolean isActive;
 
     @ManyToMany( fetch = FetchType.EAGER )

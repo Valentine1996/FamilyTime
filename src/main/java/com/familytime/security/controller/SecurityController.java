@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping( value = "/security" )
+@RequestMapping( value = "/security/" )
 public class SecurityController {
 
     /// *** Properties  *** ///
@@ -100,6 +100,75 @@ public class SecurityController {
                 true, // parent status
                 true, // active
                 userRoles
+            );
+
+            //- Success -//
+            response.setStatus(HttpServletResponse.SC_CREATED);
+
+            //- Persist -//
+            return this.userService.create(newUser);
+        } catch (DataIntegrityViolationException | IllegalArgumentException e ) {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+
+        return null;
+    }
+
+    /// *** Methods     *** ///
+    //- SECTION :: ACTIONS -//
+
+    /**
+     * Registration a new user by parent.
+     *
+     * @param registrationForm  Data from registration form for register a new user.
+     * @param response          Use for work with HTTP.
+     *
+     * @return User Created user.
+     */
+    @RequestMapping( value = "internal/signup", method = RequestMethod.POST)
+    @ResponseBody
+    public User internalRegistrationAction(
+            @RequestBody
+            @Valid
+            final RegistrationForm registrationForm,
+
+            HttpServletResponse response
+    ) {
+        try {
+
+            //Get role depends on the checkbox
+
+            Role usersRole = null;
+
+
+            if (registrationForm.getIsParent()) {
+                roleService.findByAuthority(Roles.PARENT.name());
+            } else {
+                roleService.findByAuthority(Roles.CHILD.name());
+            }
+
+            if (usersRole == null) {
+                response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+                return null;
+            }
+            //Create list of roles
+            List<Role> userRoles = new ArrayList<>();
+            userRoles.add(usersRole);
+
+            //Create new user
+            User newUser = new User(
+                    new Family(registrationForm.getFamilyName()), //create new role
+                    registrationForm.getFirstName(),
+                    registrationForm.getLastName(),
+                    registrationForm.getMiddleName(),
+                    registrationForm.getUsername(),
+                    registrationForm.getPassword(),
+                    registrationForm.getBirthday(),
+                    registrationForm.getGender(),
+                    registrationForm.getLocale(),
+                    registrationForm.getIsParent(), // users status
+                    true, // active
+                    userRoles
             );
 
             //- Success -//
