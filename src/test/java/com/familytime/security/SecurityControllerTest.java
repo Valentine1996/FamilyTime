@@ -111,7 +111,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest{
                         "\"lastName\": \"test\", " +
                         "\"middleName\": \"test\", " +
                         "\"username\": \"test@gmail.com\", " +
-                        "\"password\": \"Te$t\", " +
+                        "\"password\": \"Te$tTe$tTe$t\", " +
                         "\"birthday\": \"2000-08-10\", " +
                         "\"gender\": false, " +
                         "\"locale\": \"en_US\"" +

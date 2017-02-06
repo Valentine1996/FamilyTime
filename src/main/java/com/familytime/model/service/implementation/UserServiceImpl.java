@@ -14,6 +14,7 @@ package com.familytime.model.service.implementation;
 
 import static org.springframework.util.Assert.notNull;
 
+import com.familytime.model.entity.Family;
 import com.familytime.model.entity.User;
 import com.familytime.model.repository.UserRepository;
 import com.familytime.model.service.UserService;
@@ -146,6 +147,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User find(Long id) {
         return this.userRepository.findOne(id);
+    }
+
+    /**
+     * Find all existed users by user's family.
+     *
+     * @param family - User's family.
+     *
+     * @return List < User > List of users.
+     */
+    @Override
+    public List<User> findByFamily(Family family) {
+        return this.userRepository.findByFamily(family);
     }
 
     /**

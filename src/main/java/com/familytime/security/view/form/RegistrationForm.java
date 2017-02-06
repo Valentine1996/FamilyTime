@@ -13,6 +13,7 @@
 package com.familytime.security.view.form;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -31,19 +32,24 @@ public class RegistrationForm {
     protected String lastName;
 
     @NotBlank
+    @Length( min = 2 , max = 32 )
     protected String firstName;
 
     @NotBlank
+    @Length( min = 2 , max = 32 )
     protected String middleName;
 
     @NotBlank
+    @Length( min = 8, max = 32 )
     @Email
     protected String username;
 
     @NotBlank
+    @Length( min = 8, max = 80 )
     protected String password;
 
     @NotBlank
+    @Length( min = 2 , max = 32)
     protected String familyName;
 
     @NotNull
@@ -51,6 +57,8 @@ public class RegistrationForm {
 
     @NotNull
     protected Boolean gender;
+
+    protected Boolean isParent;
 
     @NotNull
     @NotEmpty
@@ -165,6 +173,15 @@ public class RegistrationForm {
     }
 
     /**
+     * Check whether user is parent.
+     *
+     * @return Boolean Is parent
+     */
+    public Boolean getIsParent() {
+        return isParent;
+    }
+
+    /**
      * Get user's locale.
      *
      * @return String User's locale
@@ -240,6 +257,15 @@ public class RegistrationForm {
      */
     public void setGender(Boolean gender) {
         this.gender = gender;
+    }
+
+    /**
+     * Set user's parent status.
+     *
+     * @param isParent Parent Status
+     */
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
     }
 
     /**

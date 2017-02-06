@@ -12,9 +12,12 @@
 
 package com.familytime.model.repository;
 
+import com.familytime.model.entity.Family;
 import com.familytime.model.entity.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * Interface for work with persistence layout
@@ -23,4 +26,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
+
+    List<User> findByFamily(Family family);
 }

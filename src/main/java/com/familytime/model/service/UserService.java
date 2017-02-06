@@ -12,6 +12,7 @@
 
 package com.familytime.model.service;
 
+import com.familytime.model.entity.Family;
 import com.familytime.model.entity.User;
 
 import java.util.List;
@@ -51,6 +52,15 @@ public interface UserService {
      * @return User Found
      */
     public User find( Long id );
+
+    /**
+     * Find all existed users by user's family.
+     *
+     * @param family - User's family.
+     *
+     * @return List < User > List of users.
+     */
+    public List<User> findByFamily(Family family);
 
     /**
      * Find user by username and Password.
