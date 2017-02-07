@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping( value = "/security/" )
+@RequestMapping( value = "/security" )
 public class SecurityController {
 
     /// *** Properties  *** ///
@@ -130,7 +130,7 @@ public class SecurityController {
      *
      * @return User Created user.
      */
-    @RequestMapping( value = "internal/signup", method = RequestMethod.POST)
+    @RequestMapping( value = "/internal/signup", method = RequestMethod.POST)
     @ResponseBody
     public User internalRegistrationAction(
             @RequestBody
@@ -143,13 +143,13 @@ public class SecurityController {
 
             //Get role depends on the checkbox
 
-            Role usersRole = null;
+            Role usersRole;
 
 
             if (internalRegistrationForm.getIsParent()) {
-                roleService.findByAuthority(Roles.PARENT.name());
+                usersRole = roleService.findByAuthority(Roles.PARENT.name());
             } else {
-                roleService.findByAuthority(Roles.CHILD.name());
+                usersRole = roleService.findByAuthority(Roles.CHILD.name());
             }
 
             if (usersRole == null) {
