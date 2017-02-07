@@ -17,8 +17,10 @@ import com.familytime.model.entity.Role;
 import com.familytime.model.entity.User;
 import com.familytime.model.service.FamilyService;
 import com.familytime.model.service.RoleService;
+import com.familytime.model.service.SecurityService;
 import com.familytime.model.service.UserService;
 import com.familytime.security.model.entity.Roles;
+import com.familytime.security.view.form.InternalRegistrationForm;
 import com.familytime.security.view.form.RegistrationForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping( value = "/security/" )
+@RequestMapping( value = "/security" )
 public class SecurityController {
 
     /// *** Properties  *** ///
@@ -50,6 +52,9 @@ public class SecurityController {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    SecurityService securityService;
 
     @Autowired
     FamilyService familyService;
@@ -120,17 +125,17 @@ public class SecurityController {
     /**
      * Registration a new user by parent.
      *
-     * @param registrationForm  Data from registration form for register a new user.
+     * @param internalRegistrationForm  Data from registration form for register a new user.
      * @param response          Use for work with HTTP.
      *
      * @return User Created user.
      */
-    @RequestMapping( value = "internal/signup", method = RequestMethod.POST)
+    @RequestMapping( value = "/internal/signup", method = RequestMethod.POST)
     @ResponseBody
     public User internalRegistrationAction(
             @RequestBody
             @Valid
-            final RegistrationForm registrationForm,
+            final InternalRegistrationForm internalRegistrationForm,
 
             HttpServletResponse response
     ) {
@@ -138,35 +143,36 @@ public class SecurityController {
 
             //Get role depends on the checkbox
 
-            Role usersRole = null;
+            Role usersRole;
 
 
-            if (registrationForm.getIsParent()) {
-                roleService.findByAuthority(Roles.PARENT.name());
+            if (internalRegistrationForm.getIsParent()) {
+                usersRole = roleService.findByAuthority(Roles.PARENT.name());
             } else {
-                roleService.findByAuthority(Roles.CHILD.name());
+                usersRole = roleService.findByAuthority(Roles.CHILD.name());
             }
 
             if (usersRole == null) {
                 response.setStatus( HttpServletResponse.SC_NOT_FOUND );
                 return null;
             }
+
             //Create list of roles
             List<Role> userRoles = new ArrayList<>();
             userRoles.add(usersRole);
 
             //Create new user
             User newUser = new User(
-                    new Family(registrationForm.getFamilyName()), //create new role
-                    registrationForm.getFirstName(),
-                    registrationForm.getLastName(),
-                    registrationForm.getMiddleName(),
-                    registrationForm.getUsername(),
-                    registrationForm.getPassword(),
-                    registrationForm.getBirthday(),
-                    registrationForm.getGender(),
-                    registrationForm.getLocale(),
-                    registrationForm.getIsParent(), // users status
+                    securityService.getFamilyOfLoggedUser(), //create new role
+                    internalRegistrationForm.getFirstName(),
+                    internalRegistrationForm.getLastName(),
+                    internalRegistrationForm.getMiddleName(),
+                    internalRegistrationForm.getUsername(),
+                    internalRegistrationForm.getPassword(),
+                    internalRegistrationForm.getBirthday(),
+                    internalRegistrationForm.getGender(),
+                    internalRegistrationForm.getLocale(),
+                    internalRegistrationForm.getIsParent(), // users status
                     true, // active
                     userRoles
             );

@@ -22,18 +22,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Form for registration of a new users.
+ * Form for registration of a new users internally.
  *
  * @version 1.0
  */
-public class RegistrationForm {
+public class InternalRegistrationForm {
 
     @NotBlank
     @Length( min = 2 , max = 32 )
     protected String lastName;
 
     @NotBlank
-    @Length( min = 2 , max = 32 )
     protected String firstName;
 
     @NotBlank
@@ -49,15 +48,14 @@ public class RegistrationForm {
     @Length( min = 8, max = 80 )
     protected String password;
 
-    @NotBlank
-    @Length( min = 2 , max = 32)
-    protected String familyName;
-
     @NotNull
     protected LocalDate birthday;
 
     @NotNull
     protected Boolean gender;
+
+    @NotNull
+    protected Boolean isParent;
 
     @NotNull
     @NotEmpty
@@ -67,7 +65,7 @@ public class RegistrationForm {
     /**
      * Default constructor.
      */
-    public RegistrationForm() {
+    public InternalRegistrationForm() {
     }
 
     /**
@@ -83,15 +81,14 @@ public class RegistrationForm {
      * @param gender Gender
      * @param locale Locale
      */
-    public RegistrationForm(String lastName, String firstName, String middleName, 
-                            String username, String password, String familyName, 
+    public InternalRegistrationForm(String lastName, String firstName, String middleName,
+                            String username, String password, String familyName,
                             LocalDate birthday, Boolean gender, String locale) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
         this.username = username;
         this.password = password;
-        this.familyName = familyName;
         this.birthday = birthday;
         this.gender = gender;
         this.locale = locale;
@@ -145,15 +142,6 @@ public class RegistrationForm {
     }
 
     /**
-     * Get user's familyName.
-     *
-     * @return String User's family name
-     */
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    /**
      * Get user's birthday.
      *
      * @return LocaleDate User's birthday
@@ -169,6 +157,15 @@ public class RegistrationForm {
      */
     public Boolean getGender() {
         return gender;
+    }
+
+    /**
+     * Check whether user is parent.
+     *
+     * @return Boolean Is parent
+     */
+    public Boolean getIsParent() {
+        return isParent;
     }
 
     /**
@@ -227,10 +224,6 @@ public class RegistrationForm {
         this.password = password;
     }
 
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
-    }
-
     /**
      * Set user's birthday.
      *
@@ -247,6 +240,15 @@ public class RegistrationForm {
      */
     public void setGender(Boolean gender) {
         this.gender = gender;
+    }
+
+    /**
+     * Set user's parent status.
+     *
+     * @param isParent Parent Status
+     */
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
     }
 
     /**
