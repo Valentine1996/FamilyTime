@@ -26,7 +26,6 @@ public class BonusTypeForm {
     /// *** Properties  *** ///
 
     @NotNull
-    @Column( name = "short_name")
     @Length(max = 16)
     protected String shortName;
 
@@ -34,7 +33,6 @@ public class BonusTypeForm {
     protected String description;
 
     @NotNull
-    @Column( name = "icon_name")
     @Length( max = 16)
     protected String iconName;
 
