@@ -24,11 +24,6 @@ import java.util.List;
 public class UserAuthenticationManager implements AuthenticationManager {
 
     /// *** Properties  *** ///
-    //- SECTION :: CRYPTOGRAPHY -//
-    /**
-     * Encoder for create hash of password.
-     */
-
     @Autowired
     private UserService userService;
 

@@ -1,6 +1,7 @@
 package com.familytime.config.security;
 
 import com.familytime.config.Persistence;
+import com.familytime.security.model.provider.implementation.CustomUserDetailsService;
 import com.familytime.security.model.provider.implementation.UserAuthenticationManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -23,6 +25,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
     private UserAuthenticationManager authenticationManager;
 
     @Autowired
@@ -31,7 +36,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-        .authenticationManager(authenticationManager);
+        .authenticationManager(authenticationManager).userDetailsService(customUserDetailsService);
     }
 
     @Override
