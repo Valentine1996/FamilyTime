@@ -10,17 +10,19 @@ import com.familytime.model.entity.Bonus;
 import com.familytime.model.entity.BonusType;
 import com.familytime.model.entity.Family;
 import com.familytime.model.service.BonusService;
+import com.familytime.model.service.BonusTypeService;
 import com.familytime.model.service.SecurityService;
 import com.familytime.view.form.BonusForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,10 +42,16 @@ public class BonusController {
     /// *** Properties  *** ///
 
     /**
-     * Service for work with bonus.
+     * Service for work with Bonus.
      */
     @Autowired
     protected BonusService bonusService;
+
+    /**
+     * Service for work with BonusType.
+     */
+    @Autowired
+    protected BonusTypeService bonusTypeService;
 
     /**
      * Service for getting data from logged user.
@@ -60,10 +68,10 @@ public class BonusController {
      * @param response    Use for work with HTTP.
      * @return            Found Bonus.
      */
-    @RequestMapping( value = "/{id}", method = RequestMethod.GET )
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Bonus findById(
-            @PathVariable( "id" )
+            @PathVariable("id")
             Long id,
 
             HttpServletResponse response
@@ -80,17 +88,6 @@ public class BonusController {
         }
 
         return null;
-    }
-
-    /**
-     * Get list of all bonuses.
-     * @return List of all bonuses.
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<Bonus> findAll() {
-        return this.bonusService.findAll();
     }
 
     /**
@@ -115,16 +112,16 @@ public class BonusController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Bonus> findByBonusType(
-            @RequestBody
-            @Valid
-            BonusForm bonusForm
+            @RequestParam
+            Long bonusTypeId
     ) {
         try {
-            if (bonusForm == null) {
+            if (bonusTypeId == null) {
                 throw new DataIntegrityViolationException("Can not get data of the bonus");
             } else {
                 //- Get bonus type and return List <Bonus> -/
-                return this.bonusService.findByBonusType(bonusForm.getBonusType());
+                return this.bonusService.findByBonusType(
+                        this.bonusTypeService.findById(bonusTypeId));
             }
         } catch (DataIntegrityViolationException e) {
             return  null;
@@ -151,20 +148,16 @@ public class BonusController {
             //- Set HTTP status -//
             response.setStatus(HttpStatus.CREATED.value());
 
-            if (bonusForm == null) {
-                throw new DataIntegrityViolationException("Can not to create bonus");
-            } else {
-                //- Get bonus type -/
-                BonusType bonusType = bonusForm.getBonusType();
-                //Create new Bonus
-                Bonus bonus = new Bonus();
+            //- Get bonus type -/
+            BonusType bonusType = this.bonusTypeService.findById(bonusForm.getBonusTypeId());
+            //Create new Bonus
+            Bonus bonus = new Bonus();
 
-                //Set Data
-                bonus.setBonusType(bonusType);
-                bonus.setTitle(bonusForm.getTitle());
-                bonus.setPrice(bonusForm.getPrice());
-                bonus.setDescription(bonusForm.getDescription());
-            }
+            //Set Data
+            bonus.setBonusType(bonusType);
+            bonus.setTitle(bonusForm.getTitle());
+            bonus.setPrice(bonusForm.getPrice());
+            bonus.setDescription(bonusForm.getDescription());
         } catch (DataIntegrityViolationException e) {
             //- Failure. Can not to create bonus -//
             response.setStatus( HttpStatus.CONFLICT.value() );
@@ -205,7 +198,8 @@ public class BonusController {
         //- Update bonus -//
         try {
             //- Set new data -//
-            bonusOrigin.setBonusType(bonusForm.getBonusType());
+            bonusOrigin.setBonusType(
+                    this.bonusTypeService.findById(id));
             bonusOrigin.setTitle(bonusForm.getTitle());
             bonusOrigin.setPrice(bonusForm.getPrice());
             bonusOrigin.setDescription(bonusForm.getDescription());
@@ -237,7 +231,7 @@ public class BonusController {
         try {
             //- Try to delete bonus -//
             this.bonusService.delete(id);
-        } catch (DataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             // Failure. Bonus doesn't exists
             //- Set HTTP status -//
             response.setStatus( HttpStatus.NOT_FOUND.value() );

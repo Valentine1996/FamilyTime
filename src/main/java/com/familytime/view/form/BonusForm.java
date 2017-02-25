@@ -4,9 +4,9 @@
 
 package com.familytime.view.form;
 
-import com.familytime.model.entity.BonusType;
-
 import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Form for bonus type.
@@ -16,13 +16,17 @@ import org.hibernate.validator.constraints.Length;
 public class BonusForm {
     /// *** Properties  *** ///
 
-    protected BonusType bonusType;
+    @NotNull
+    protected Long bonusTypeId;
 
+    @NotNull
     @Length(max = 64)
     protected String title;
 
+    @NotNull
     protected String description;
 
+    @NotNull
     protected Integer price;
 
     /**
@@ -34,24 +38,24 @@ public class BonusForm {
     /**
      * Constructor.
      *
-     * @param bonusType Bonus's type
+     * @param bonusTypeId BonusType's Id
      * @param price Bonus's price
      */
-    public BonusForm(BonusType bonusType, Integer price) {
-        this.bonusType = bonusType;
+    public BonusForm(Long bonusTypeId, Integer price) {
+        this.bonusTypeId = bonusTypeId;
         this.price = price;
     }
 
     /**
      * Constructor.
      *
-     * @param bonusType Bonus's type
+     * @param bonusTypeId BonusType's Id
      * @param title Bonu's title
      * @param price Bonus's price
      * @param description Bonus's description
      */
-    public BonusForm(BonusType bonusType, String title, Integer price, String description) {
-        this.bonusType = bonusType;
+    public BonusForm(Long bonusTypeId, String title, Integer price, String description) {
+        this.bonusTypeId = bonusTypeId;
         this.title = title;
         this.price = price;
         this.description = description;
@@ -60,11 +64,11 @@ public class BonusForm {
     //- SECTION :: GET -//
 
     /**
-     * Get Type of the bonus.
+     * Get BonusType's Id.
      * @return bonusType Type of the bonus
      */
-    public BonusType getBonusType() {
-        return bonusType;
+    public Long getBonusTypeId() {
+        return bonusTypeId;
     }
 
     /**
@@ -94,12 +98,12 @@ public class BonusForm {
     //- SECTION :: SET -//
 
     /**
-     * Set Type of the bonus.
+     * Set BonusType's Id.
      *
-     * @param bonusType Type of the bonus
+     * @param bonusTypeId BonusType's Id
      */
-    public void setBonusType(BonusType bonusType) {
-        this.bonusType = bonusType;
+    public void setBonusType(Long bonusTypeId) {
+        this.bonusTypeId = bonusTypeId;
     }
 
     /**

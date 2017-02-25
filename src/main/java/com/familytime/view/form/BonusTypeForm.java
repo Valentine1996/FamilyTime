@@ -14,7 +14,6 @@ package com.familytime.view.form;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -29,7 +28,7 @@ public class BonusTypeForm {
     @Length(max = 16)
     protected String shortName;
 
-    @Column( name = "description")
+    @NotNull
     protected String description;
 
     @NotNull
