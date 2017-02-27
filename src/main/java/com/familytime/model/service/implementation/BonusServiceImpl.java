@@ -5,11 +5,8 @@
 package com.familytime.model.service.implementation;
 
 import com.familytime.model.entity.Bonus;
-import com.familytime.model.entity.BonusType;
-import com.familytime.model.entity.Family;
 import com.familytime.model.repository.BonusRepository;
 import com.familytime.model.service.BonusService;
-import com.familytime.model.service.BonusTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,28 +41,6 @@ public class BonusServiceImpl implements BonusService {
     @Override
     public List<Bonus> findAll() {
         return this.bonusRepository.findAll();
-    }
-
-    /**
-     * Find all existed bonus by user's family.
-     *
-     * @param family - User's family.
-     * @return List < Bonus > list of the Bonuses by user's family.
-     */
-    @Override
-    public List<Bonus> findByFamily(Family family) {
-        return this.bonusRepository.findByFamily(family);
-    }
-
-    /**
-     * Find all existed bonus by user's family and Bonus type.
-     *
-     * @param bonusType - Bonus type.
-     * @return List < Bonus > list of the Bonuses by Bonus's type.
-     */
-    @Override
-    public List<Bonus> findByBonusType(BonusType bonusType) {
-        return this.bonusRepository.findByBonusType(bonusType);
     }
 
     /**

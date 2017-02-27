@@ -5,8 +5,6 @@
 package com.familytime.model.service;
 
 import com.familytime.model.entity.Bonus;
-import com.familytime.model.entity.BonusType;
-import com.familytime.model.entity.Family;
 
 import java.util.List;
 
@@ -25,22 +23,6 @@ public interface BonusService {
      * @return List < Bonus > List of bonuses.
      */
     public List<Bonus> findAll();
-
-    /**
-     * Find all existed bonus by user's family.
-     *
-     * @param family - User's family.
-     * @return List < Bonus > List of bonuses by family.
-     */
-    public List<Bonus> findByFamily(Family family);
-
-    /**
-     * Find all existed bonus by Bonus's type.
-     *
-     * @param bonusType - Bonus type.
-     * @return List < Bonus > List of bonuses by Bonus's type.
-     */
-    public List<Bonus> findByBonusType(BonusType bonusType);
 
     /**
      * Create new bonus.
