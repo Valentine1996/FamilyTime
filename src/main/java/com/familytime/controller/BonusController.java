@@ -108,7 +108,7 @@ public class BonusController {
      * Get list of bonuses by Bonus type.
      * @return List of bonuses by Bonus type.
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/bonusType", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Bonus> findByBonusType(
