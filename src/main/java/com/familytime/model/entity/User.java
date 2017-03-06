@@ -61,28 +61,28 @@ public class User implements Serializable {
     @JoinColumn( name = "family_id" )
     protected Family family;
 
-    @NotNull
+    @NotBlank
     @Length( min = 2 , max = 32 )
     @Column( name = "first_name" )
     protected String firstName;
 
-    @NotNull
+    @NotBlank
     @Length( min = 2 , max = 32)
     @Column( name = "last_name" )
     protected String lastName;
 
-    @NotNull
+    @NotBlank
     @Length( min = 2 , max = 32)
     @Column( name = "middle_name" )
     protected String middleName;
 
-    @NotNull
+    @NotBlank
     @Email
     @Length( min = 8, max = 32)
     @Column( name = "username", unique = true )
     protected String username;
 
-    @NotNull
+    @NotBlank
     @Length( min = 8, max = 80 )
     @Column( name = "password" )
     @JsonIgnore

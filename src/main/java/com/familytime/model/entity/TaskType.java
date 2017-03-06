@@ -23,6 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -31,7 +32,16 @@ import javax.validation.constraints.NotNull;
  * @version 1.0
  */
 @Entity
-@Table( name = "task_type")
+@Table(
+        name = "task_type",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {
+                                "family_id",
+                                "shortName"
+                        }
+                )
+        })
 public class TaskType implements Serializable {
     /// *** Properties  *** ///
     @Id

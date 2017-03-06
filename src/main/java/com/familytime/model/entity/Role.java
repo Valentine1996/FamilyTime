@@ -12,13 +12,14 @@
 
 package com.familytime.model.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 /**
  * Class for reflect table Role from persistence layout.
@@ -38,7 +39,7 @@ public class Role implements Serializable {
     protected Long id;
 
 
-    @NotNull
+    @NotBlank
     @Column(name = "authority", unique = true)
     protected String authority;
 

@@ -1,24 +1,12 @@
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2016 (c), by Valentine
- *
- * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
- *
- * @date 2017-01-20 14:32:33 ::
- *
- * @address /Ukraine/Ivano-Frankivsk/Rozhniw
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
 package com.familytime.controller;
 
 import static org.springframework.util.Assert.notNull;
 
-import com.familytime.model.entity.BonusType;
+import com.familytime.model.entity.Complexity;
 import com.familytime.model.entity.Family;
-import com.familytime.model.service.BonusTypeService;
+import com.familytime.model.service.ComplexityService;
 import com.familytime.model.service.SecurityService;
-import com.familytime.view.form.BonusTypeForm;
+import com.familytime.view.form.ComplexityForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -37,20 +25,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
- * Controller for bonusTypes.
+ * Controller for complexities.
  *
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/bonusType" )
-public class BonusTypeController {
-
+@RequestMapping( value = "/complexity" )
+public class ComplexityController {
     /// *** Properties  *** ///
     /**
      * Service for work with bonus types.
      */
     @Autowired
-    protected BonusTypeService bonusTypeService;
+    protected ComplexityService complexityService;
 
     /**
      * Service for getting data from logged user.
@@ -61,35 +48,35 @@ public class BonusTypeController {
     /// *** Methods     *** ///
 
     /**
-     * Get list of bonus types.
+     * Get list of complexities.
      *
-     * @return List of bonus types.
+     * @return List of complexities.
      */
     @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK )
     @ResponseBody
-    public List<BonusType> findAll() {
+    public List<Complexity> findAll() {
 
         //- Get user's family -/
         Family usersFamily = securityService.getFamilyOfLoggedUser();
 
-        return this.bonusTypeService.findByFamily(usersFamily);
+        return this.complexityService.findByFamily(usersFamily);
     }
 
     /**
-     * Create a new bonus type.
+     * Create a new complexity.
      *
-     * @param bonusTypeForm         Form with input.
+     * @param complexityForm         Form with input.
      * @param response              Use for work with HTTP.
      *
-     * @return Created bonusType.
+     * @return Created complexity.
      */
     @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
-    public BonusType createAction(
+    public Complexity createAction(
             @RequestBody
             @Valid
-            BonusTypeForm bonusTypeForm,
+            ComplexityForm complexityForm,
 
             HttpServletResponse response
     ) {
@@ -104,17 +91,16 @@ public class BonusTypeController {
                 //- Failure. Can not to create bonus type -//
                 response.setStatus( HttpStatus.CONFLICT.value() );
             } else {
-                //Create new bonusType
-                BonusType bonusType = new BonusType();
+                //Create new complexity
+                Complexity complexity = new Complexity();
                 //Set data
                 //- Set user's family -//
-                bonusType.setFamily(usersFamily);
-                bonusType.setShortName(bonusTypeForm.getShortName());
-                bonusType.setDescription(bonusTypeForm.getDescription());
-                bonusType.setIconName(bonusTypeForm.getIconName());
+                complexity.setFamily(usersFamily);
+                complexity.setType(complexityForm.getType());
+                complexity.setDescription(complexityForm.getDescription());
 
                 //- Success. Return created bonus type -//
-                return this.bonusTypeService.create(bonusType);
+                return this.complexityService.create(complexity);
             }
         } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create bonus type -//
@@ -125,31 +111,31 @@ public class BonusTypeController {
     }
 
     /**
-     * Get bonusType by id.
+     * Get complexity by id.
      *
-     * @param id          Id of bonusType.
+     * @param id          Id of complexity.
      * @param response    Use for work with HTTP.
      *
-     * @return Found style.
+     * @return Found complexity.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     @ResponseBody
-    public BonusType find(
+    public Complexity find(
             @PathVariable( "id" )
             Long id,
 
             HttpServletResponse response
     ) {
         try {
-            //- Search requested bonus type -//
-            BonusType bonusType = this.bonusTypeService.findById( id );
+            //- Search requested complexity -//
+            Complexity complexity = this.complexityService.findById( id );
 
-            //- Check if bonus type was found -//
-            notNull( bonusType );
+            //- Check if complexity was found -//
+            notNull( complexity );
 
-            return bonusType;
+            return complexity;
         } catch ( IllegalArgumentException e ) {
-            //- Error. Cannot find this bonus type -//
+            //- Error. Cannot find this complexity -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
 
@@ -157,47 +143,45 @@ public class BonusTypeController {
     }
 
     /**
-     * Update already exist bonus type.
+     * Update already existed complexity.
      *
-     * @param id        ID of bonusType
-     * @param bonusTypeForm     Updated data
+     * @param id        ID of complexity
+     * @param complexityForm     Updated data
      * @param response  Use for set HTTP status
      *
-     * @return Updated bonus type.
+     * @return Updated complexity.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
-    public BonusType updateAction(
+    public Complexity updateAction(
             @PathVariable( "id" )
             Long id,
 
             @RequestBody
             @Valid
-            BonusTypeForm bonusTypeForm,
+            ComplexityForm complexityForm,
 
             HttpServletResponse response
     ) {
-        //- Search origin bonus type -//
-        BonusType bonusTypeOrigin = this.bonusTypeService.findById( id );
+        //- Search origin complexity -//
+        Complexity complexityOrigin = this.complexityService.findById( id );
 
-        if ( bonusTypeOrigin == null ) {
-            //- Failure. Bonus type not found -//
+        if ( complexityOrigin == null ) {
+            //- Failure. Complexity not found -//
             response.setStatus( HttpStatus.NOT_FOUND.value() );
             return null;
         }
 
-        //- Update bonus type -//
+        //- Update complexity -//
         try {
             //- Set new data -//
-            bonusTypeOrigin.setShortName( bonusTypeForm.getShortName());
-            bonusTypeOrigin.setDescription( bonusTypeForm.getDescription());
+            complexityOrigin.setType( complexityForm.getType());
+            complexityOrigin.setDescription( complexityForm.getDescription());
 
-            //- TODO Add changing photo
-
-            //- Success. Return updated bonus type -//
-            return this.bonusTypeService.update( bonusTypeOrigin );
+            //- Success. Return updated complexity -//
+            return this.complexityService.update( complexityOrigin);
         } catch ( DataIntegrityViolationException e ) {
-            //- Failure. Can not to create bonus type -//
+            //- Failure. Can not create complexity -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
 
@@ -205,9 +189,9 @@ public class BonusTypeController {
     }
 
     /**
-     * Delete bonus type.
+     * Delete complexity.
      *
-     * @param id          Id of bonusType.
+     * @param id          Id of complexity.
      * @param response    Use for work with HTTP.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
@@ -219,10 +203,10 @@ public class BonusTypeController {
             HttpServletResponse response
     ) {
         try {
-            //- Try to delete bonus type -//
-            this.bonusTypeService.delete( id );
+            //- Try to delete complexity -//
+            this.complexityService.delete( id );
         } catch ( DataAccessException e ) {
-            // Failure. Bonus type doesn't exists
+            // Failure. Complexity doesn't exists
             //- Set HTTP status -//
             response.setStatus( HttpStatus.NOT_FOUND.value() );
         }

@@ -13,6 +13,7 @@
 package com.familytime.model.service;
 
 import com.familytime.model.entity.Complexity;
+import com.familytime.model.entity.Family;
 
 import java.util.List;
 
@@ -32,6 +33,15 @@ public interface ComplexityService {
      * @return List < Complexity > List of complexities
      */
     public List<Complexity> findAll();
+
+    /**
+     * Find all existed complexities by user's family.
+     *
+     * @param family - User's family.
+     *
+     * @return List < Complexity > List of complexities.
+     */
+    public List<Complexity> findByFamily(Family family);
 
     /**
      * Create new complexity.

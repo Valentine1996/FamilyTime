@@ -12,6 +12,7 @@
 
 package com.familytime.model.service;
 
+import com.familytime.model.entity.Complexity;
 import com.familytime.model.entity.Family;
 import com.familytime.model.entity.TaskType;
 
@@ -42,6 +43,14 @@ public interface TaskTypeService {
      */
     public List<TaskType> findAll(int page, int limit);
 
+    /**
+     * Find all existed task types by user's family.
+     *
+     * @param family - User's family.
+     *
+     * @return List < TaskType > List of task types.
+     */
+    public List<TaskType> findByFamily(Family family);
     /**
      * Create new task type.
      * 

@@ -1,24 +1,12 @@
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2016 (c), by Valentine
- *
- * @author <a href="mailto:valentunnamisnuk@gmail.com">Valentyn Namisnyk</a>
- *
- * @date 2017-01-20 14:32:33 ::
- *
- * @address /Ukraine/Ivano-Frankivsk/Rozhniw
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
 package com.familytime.controller;
 
 import static org.springframework.util.Assert.notNull;
 
-import com.familytime.model.entity.BonusType;
 import com.familytime.model.entity.Family;
-import com.familytime.model.service.BonusTypeService;
+import com.familytime.model.entity.TaskType;
 import com.familytime.model.service.SecurityService;
-import com.familytime.view.form.BonusTypeForm;
+import com.familytime.model.service.TaskTypeService;
+import com.familytime.view.form.TaskTypeForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -37,20 +25,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
- * Controller for bonusTypes.
+ * Controller for task types.
  *
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/bonusType" )
-public class BonusTypeController {
-
+@RequestMapping( value = "/taskType" )
+public class TaskTypeController {
     /// *** Properties  *** ///
     /**
-     * Service for work with bonus types.
+     * Service for work with task types.
      */
     @Autowired
-    protected BonusTypeService bonusTypeService;
+    protected TaskTypeService taskTypeService;
 
     /**
      * Service for getting data from logged user.
@@ -61,35 +48,35 @@ public class BonusTypeController {
     /// *** Methods     *** ///
 
     /**
-     * Get list of bonus types.
+     * Get list of task types.
      *
-     * @return List of bonus types.
+     * @return List of task types.
      */
     @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK )
     @ResponseBody
-    public List<BonusType> findAll() {
+    public List<TaskType> findAll() {
 
         //- Get user's family -/
         Family usersFamily = securityService.getFamilyOfLoggedUser();
 
-        return this.bonusTypeService.findByFamily(usersFamily);
+        return this.taskTypeService.findByFamily(usersFamily);
     }
 
     /**
-     * Create a new bonus type.
+     * Create a new task type.
      *
-     * @param bonusTypeForm         Form with input.
+     * @param taskTypeForm          Form with input.
      * @param response              Use for work with HTTP.
      *
-     * @return Created bonusType.
+     * @return Created task type.
      */
     @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
-    public BonusType createAction(
+    public TaskType createAction(
             @RequestBody
             @Valid
-            BonusTypeForm bonusTypeForm,
+            TaskTypeForm taskTypeForm,
 
             HttpServletResponse response
     ) {
@@ -101,55 +88,53 @@ public class BonusTypeController {
             Family usersFamily = securityService.getFamilyOfLoggedUser();
 
             if (usersFamily == null) {
-                //- Failure. Can not to create bonus type -//
+                //- Failure. Can not to create task type -//
                 response.setStatus( HttpStatus.CONFLICT.value() );
             } else {
-                //Create new bonusType
-                BonusType bonusType = new BonusType();
+                //Create new task type
+                TaskType taskType = new TaskType();
                 //Set data
                 //- Set user's family -//
-                bonusType.setFamily(usersFamily);
-                bonusType.setShortName(bonusTypeForm.getShortName());
-                bonusType.setDescription(bonusTypeForm.getDescription());
-                bonusType.setIconName(bonusTypeForm.getIconName());
+                taskType.setFamily(usersFamily);
+                taskType.setShortName(taskTypeForm.getShortName());
+                taskType.setDescription(taskTypeForm.getDescription());
 
-                //- Success. Return created bonus type -//
-                return this.bonusTypeService.create(bonusType);
+                //- Success. Return created task type -//
+                return this.taskTypeService.create(taskType);
             }
         } catch ( DataIntegrityViolationException e ) {
-            //- Failure. Can not to create bonus type -//
+            //- Failure. Can not create task type -//
             response.setStatus( HttpStatus.CONFLICT.value() );
         }
-
         return null;
     }
 
     /**
-     * Get bonusType by id.
+     * Get task type by id.
      *
-     * @param id          Id of bonusType.
+     * @param id          Id of task type.
      * @param response    Use for work with HTTP.
      *
-     * @return Found style.
+     * @return Found task type.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     @ResponseBody
-    public BonusType find(
+    public TaskType find(
             @PathVariable( "id" )
             Long id,
 
             HttpServletResponse response
     ) {
         try {
-            //- Search requested bonus type -//
-            BonusType bonusType = this.bonusTypeService.findById( id );
+            //- Search requested task type -//
+            TaskType taskType = this.taskTypeService.findById( id );
 
-            //- Check if bonus type was found -//
-            notNull( bonusType );
+            //- Check if task type was found -//
+            notNull( taskType );
 
-            return bonusType;
+            return taskType;
         } catch ( IllegalArgumentException e ) {
-            //- Error. Cannot find this bonus type -//
+            //- Error. Cannot find this task type -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
 
@@ -157,47 +142,45 @@ public class BonusTypeController {
     }
 
     /**
-     * Update already exist bonus type.
+     * Update already existed task type.
      *
-     * @param id        ID of bonusType
-     * @param bonusTypeForm     Updated data
-     * @param response  Use for set HTTP status
+     * @param id                 ID of task type
+     * @param taskTypeForm     Updated data
+     * @param response           Use for set HTTP status
      *
-     * @return Updated bonus type.
+     * @return Updated task type.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
-    public BonusType updateAction(
+    public TaskType updateAction(
             @PathVariable( "id" )
-            Long id,
+                    Long id,
 
             @RequestBody
             @Valid
-            BonusTypeForm bonusTypeForm,
+            TaskTypeForm taskTypeForm,
 
             HttpServletResponse response
     ) {
-        //- Search origin bonus type -//
-        BonusType bonusTypeOrigin = this.bonusTypeService.findById( id );
+        //- Search origin task type -//
+        TaskType taskTypeOrigin = this.taskTypeService.findById( id );
 
-        if ( bonusTypeOrigin == null ) {
-            //- Failure. Bonus type not found -//
+        if ( taskTypeOrigin == null ) {
+            //- Failure. Task type not found -//
             response.setStatus( HttpStatus.NOT_FOUND.value() );
             return null;
         }
 
-        //- Update bonus type -//
+        //- Update task type -//
         try {
             //- Set new data -//
-            bonusTypeOrigin.setShortName( bonusTypeForm.getShortName());
-            bonusTypeOrigin.setDescription( bonusTypeForm.getDescription());
+            taskTypeOrigin.setShortName( taskTypeForm.getShortName());
+            taskTypeOrigin.setDescription( taskTypeForm.getDescription());
 
-            //- TODO Add changing photo
-
-            //- Success. Return updated bonus type -//
-            return this.bonusTypeService.update( bonusTypeOrigin );
+            //- Success. Return updated taskType -//
+            return this.taskTypeService.update(taskTypeOrigin);
         } catch ( DataIntegrityViolationException e ) {
-            //- Failure. Can not to create bonus type -//
+            //- Failure. Can not create task type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
 
@@ -205,9 +188,9 @@ public class BonusTypeController {
     }
 
     /**
-     * Delete bonus type.
+     * Delete task type.
      *
-     * @param id          Id of bonusType.
+     * @param id          Id of task type.
      * @param response    Use for work with HTTP.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
@@ -219,10 +202,10 @@ public class BonusTypeController {
             HttpServletResponse response
     ) {
         try {
-            //- Try to delete bonus type -//
-            this.bonusTypeService.delete( id );
+            //- Try to delete task type -//
+            this.taskTypeService.delete( id );
         } catch ( DataAccessException e ) {
-            // Failure. Bonus type doesn't exists
+            // Failure. Task type doesn't exists
             //- Set HTTP status -//
             response.setStatus( HttpStatus.NOT_FOUND.value() );
         }

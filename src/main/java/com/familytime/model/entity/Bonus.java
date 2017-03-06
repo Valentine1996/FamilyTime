@@ -5,6 +5,7 @@
 package com.familytime.model.entity;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 
@@ -39,7 +40,7 @@ public class Bonus implements Serializable {
     @JoinColumn(name = "bonus_type_id")
     protected BonusType bonusType;
 
-    @NotNull
+    @NotBlank
     @Column(name = "title")
     @Length(max = 64)
     protected String title;
