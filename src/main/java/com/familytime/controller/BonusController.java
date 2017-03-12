@@ -158,6 +158,9 @@ public class BonusController {
             bonus.setTitle(bonusForm.getTitle());
             bonus.setPrice(bonusForm.getPrice());
             bonus.setDescription(bonusForm.getDescription());
+
+            //- Success. Return created bonus -//
+            return this.bonusService.create(bonus);
         } catch (DataIntegrityViolationException e) {
             //- Failure. Can not to create bonus -//
             response.setStatus( HttpStatus.CONFLICT.value() );
@@ -198,8 +201,7 @@ public class BonusController {
         //- Update bonus -//
         try {
             //- Set new data -//
-            bonusOrigin.setBonusType(
-                    this.bonusTypeService.findById(id));
+            bonusOrigin.setBonusType(this.bonusTypeService.findById(bonusForm.getBonusTypeId()));
             bonusOrigin.setTitle(bonusForm.getTitle());
             bonusOrigin.setPrice(bonusForm.getPrice());
             bonusOrigin.setDescription(bonusForm.getDescription());
