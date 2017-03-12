@@ -13,6 +13,7 @@
 package com.familytime.model.entity;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 
@@ -23,11 +24,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table( name = "complexity")
+@Table(
+        name = "complexity",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {
+                                "family_id",
+                                "type"
+                        }
+                )
+        })
 public class Complexity implements Serializable {
 
     /// *** Properties  *** ///
@@ -41,11 +52,12 @@ public class Complexity implements Serializable {
     @JoinColumn( name = "family_id")
     protected Family family;
 
-    @NotNull
+    @NotBlank
     @Column( name = "type")
     @Length(max = 16)
     protected String type;
 
+    @NotBlank
     @Column( name = "description")
     protected String description;
 

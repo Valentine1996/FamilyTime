@@ -12,6 +12,7 @@
 
 package com.familytime.model.service.implementation;
 
+import com.familytime.model.entity.Family;
 import com.familytime.model.entity.TaskType;
 import com.familytime.model.repository.TaskTypeRepository;
 import com.familytime.model.service.TaskTypeService;
@@ -71,6 +72,18 @@ public class TaskTypeServiceImpl implements TaskTypeService {
             )
         )
             .getContent();
+    }
+
+    /**
+     * Find all existed task types by user's family.
+     *
+     * @param family - User's family.
+     *
+     * @return List < TaskType > List of task types.
+     */
+    @Override
+    public List<TaskType> findByFamily(Family family) {
+        return this.taskTypeRepository.findByFamily(family);
     }
 
     /**

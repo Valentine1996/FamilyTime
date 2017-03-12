@@ -13,6 +13,7 @@
 package com.familytime.view.form;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,14 +25,14 @@ import javax.validation.constraints.NotNull;
 public class BonusTypeForm {
     /// *** Properties  *** ///
 
-    @NotNull
+    @NotBlank
     @Length(max = 16)
     protected String shortName;
 
-    @NotNull
+    @NotBlank
     protected String description;
 
-    @NotNull
+    @NotBlank
     @Length( max = 16)
     protected String iconName;
 

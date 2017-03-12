@@ -12,9 +12,12 @@
 
 package com.familytime.model.repository;
 
+import com.familytime.model.entity.Family;
 import com.familytime.model.entity.TaskType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * Interface for work with persistence layout
@@ -22,4 +25,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 1.0
  */
 public interface TaskTypeRepository extends JpaRepository<TaskType, Long> {
+
+    List<TaskType> findByFamily(Family family);
 }

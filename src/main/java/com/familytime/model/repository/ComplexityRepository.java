@@ -14,8 +14,13 @@ package com.familytime.model.repository;
 
 import com.familytime.model.entity.Complexity;
 
+import com.familytime.model.entity.Family;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface ComplexityRepository extends JpaRepository<Complexity, Long> {
     
+    List<Complexity> findByFamily(Family family);
 }

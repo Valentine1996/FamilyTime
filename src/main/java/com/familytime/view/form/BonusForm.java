@@ -5,6 +5,7 @@
 package com.familytime.view.form;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,7 +20,7 @@ public class BonusForm {
     @NotNull
     protected Long bonusTypeId;
 
-    @NotNull
+    @NotBlank
     @Length(max = 64)
     protected String title;
 

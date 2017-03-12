@@ -13,6 +13,7 @@
 package com.familytime.model.service.implementation;
 
 import com.familytime.model.entity.Complexity;
+import com.familytime.model.entity.Family;
 import com.familytime.model.repository.ComplexityRepository;
 import com.familytime.model.service.ComplexityService;
 
@@ -50,6 +51,18 @@ public class ComplexityServiceImpl implements ComplexityService {
     @Override
     public List<Complexity> findAll() {
         return this.complexityRepository.findAll();
+    }
+
+    /**
+     * Find all existed complexities by user's family.
+     *
+     * @param family - User's family.
+     *
+     * @return List < Complexity > List of complexities.
+     */
+    @Override
+    public List<Complexity> findByFamily(Family family) {
+        return this.complexityRepository.findByFamily(family);
     }
 
     /**
