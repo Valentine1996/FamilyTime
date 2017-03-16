@@ -44,4 +44,17 @@ public class SecurityServiceImpl implements SecurityService {
         return null;
     }
 
+    /**
+     * Get logged user.
+     *
+     * @return User - logged user.
+     */
+    @Override
+    public com.familytime.model.entity.User getLoggedUser() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName(); //get logged in username
+
+        return this.userRepository.findByUsername(username);
+    }
 }

@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
- * Controller for task types.
+ * Controller for parentTask types.
  *
  * @version 1.0
  */
@@ -34,7 +34,7 @@ import javax.validation.Valid;
 public class TaskTypeController {
     /// *** Properties  *** ///
     /**
-     * Service for work with task types.
+     * Service for work with parentTask types.
      */
     @Autowired
     protected TaskTypeService taskTypeService;
@@ -48,9 +48,9 @@ public class TaskTypeController {
     /// *** Methods     *** ///
 
     /**
-     * Get list of task types.
+     * Get list of parentTask types.
      *
-     * @return List of task types.
+     * @return List of parentTask types.
      */
     @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK )
@@ -64,12 +64,12 @@ public class TaskTypeController {
     }
 
     /**
-     * Create a new task type.
+     * Create a new parentTask type.
      *
      * @param taskTypeForm          Form with input.
      * @param response              Use for work with HTTP.
      *
-     * @return Created task type.
+     * @return Created parentTask type.
      */
     @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
@@ -88,10 +88,10 @@ public class TaskTypeController {
             Family usersFamily = securityService.getFamilyOfLoggedUser();
 
             if (usersFamily == null) {
-                //- Failure. Can not to create task type -//
+                //- Failure. Can not to create parentTask type -//
                 response.setStatus( HttpStatus.CONFLICT.value() );
             } else {
-                //Create new task type
+                //Create new parentTask type
                 TaskType taskType = new TaskType();
                 //Set data
                 //- Set user's family -//
@@ -99,23 +99,23 @@ public class TaskTypeController {
                 taskType.setShortName(taskTypeForm.getShortName());
                 taskType.setDescription(taskTypeForm.getDescription());
 
-                //- Success. Return created task type -//
+                //- Success. Return created parentTask type -//
                 return this.taskTypeService.create(taskType);
             }
         } catch ( DataIntegrityViolationException e ) {
-            //- Failure. Can not create task type -//
+            //- Failure. Can not create parentTask type -//
             response.setStatus( HttpStatus.CONFLICT.value() );
         }
         return null;
     }
 
     /**
-     * Get task type by id.
+     * Get parentTask type by id.
      *
-     * @param id          Id of task type.
+     * @param id          Id of parentTask type.
      * @param response    Use for work with HTTP.
      *
-     * @return Found task type.
+     * @return Found parentTask type.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     @ResponseBody
@@ -126,15 +126,15 @@ public class TaskTypeController {
             HttpServletResponse response
     ) {
         try {
-            //- Search requested task type -//
+            //- Search requested parentTask type -//
             TaskType taskType = this.taskTypeService.findById( id );
 
-            //- Check if task type was found -//
+            //- Check if parentTask type was found -//
             notNull( taskType );
 
             return taskType;
         } catch ( IllegalArgumentException e ) {
-            //- Error. Cannot find this task type -//
+            //- Error. Cannot find this parentTask type -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
 
@@ -142,13 +142,13 @@ public class TaskTypeController {
     }
 
     /**
-     * Update already existed task type.
+     * Update already existed parentTask type.
      *
-     * @param id                 ID of task type
+     * @param id                 ID of parentTask type
      * @param taskTypeForm     Updated data
      * @param response           Use for set HTTP status
      *
-     * @return Updated task type.
+     * @return Updated parentTask type.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
@@ -162,7 +162,7 @@ public class TaskTypeController {
 
             HttpServletResponse response
     ) {
-        //- Search origin task type -//
+        //- Search origin parentTask type -//
         TaskType taskTypeOrigin = this.taskTypeService.findById( id );
 
         if ( taskTypeOrigin == null ) {
@@ -171,7 +171,7 @@ public class TaskTypeController {
             return null;
         }
 
-        //- Update task type -//
+        //- Update parentTask type -//
         try {
             //- Set new data -//
             taskTypeOrigin.setShortName( taskTypeForm.getShortName());
@@ -180,7 +180,7 @@ public class TaskTypeController {
             //- Success. Return updated taskType -//
             return this.taskTypeService.update(taskTypeOrigin);
         } catch ( DataIntegrityViolationException e ) {
-            //- Failure. Can not create task type -//
+            //- Failure. Can not create parentTask type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
 
@@ -188,9 +188,9 @@ public class TaskTypeController {
     }
 
     /**
-     * Delete task type.
+     * Delete parentTask type.
      *
-     * @param id          Id of task type.
+     * @param id          Id of parentTask type.
      * @param response    Use for work with HTTP.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
@@ -202,7 +202,7 @@ public class TaskTypeController {
             HttpServletResponse response
     ) {
         try {
-            //- Try to delete task type -//
+            //- Try to delete parentTask type -//
             this.taskTypeService.delete( id );
         } catch ( DataAccessException e ) {
             // Failure. Task type doesn't exists

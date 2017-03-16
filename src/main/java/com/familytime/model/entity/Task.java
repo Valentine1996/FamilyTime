@@ -5,9 +5,9 @@
 package com.familytime.model.entity;
 
 import com.familytime.model.serializer.JsonDataTimeSerializer;
-import com.familytime.model.serializer.JsonDateSerializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,7 +26,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect table tast from persistence layout
+ * Class for reflect table parentTask from persistence layout
  *
  * @version 1.0
  */
@@ -61,29 +63,34 @@ public class Task implements Serializable {
     @JoinColumn(name = "performer_id")
     protected User performer;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "bonus_id")
     protected Bonus bonus;
 
     @NotNull
-    @Value("false")
     @Column(name = "has_subtasks")
+    @Value("false")
     protected Boolean hasSubtasks;
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    protected Task task;
+    protected Task parentTask;
 
     @Column(name = "step")
     protected Integer step;
 
+    @NotBlank
     @Column(name = "description")
     protected String description;
 
     @NotNull
     @Column(name = "prize")
     protected Integer prize;
+
+    @NotNull
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    protected TaskStatus status;
 
     @NotNull
     @JsonSerialize(using = JsonDataTimeSerializer.class)
@@ -131,6 +138,8 @@ public class Task implements Serializable {
         this.description = description;
         this.prize = prize;
         this.closeTo = closeTo;
+        this.hasSubtasks = false;
+        this.status = TaskStatus.OPEN;
     }
 
     /**
@@ -145,11 +154,11 @@ public class Task implements Serializable {
      * @param description Task's description
      * @param prize Task's prize
      * @param closeTo Task's close date
-     * @param task Task's parent
+     * @param parentTask Task's parent
      */
     public Task(TaskType taskType, Complexity complexity, User creator, User performer,
                 Bonus bonus, Integer step, String description, Integer prize, LocalDateTime closeTo,
-                Task task) {
+                Task parentTask) {
 
         this.taskType = taskType;
         this.complexity = complexity;
@@ -161,7 +170,8 @@ public class Task implements Serializable {
         this.prize = prize;
         this.closeTo = closeTo;
         this.hasSubtasks = true;
-        this.task = task;
+        this.parentTask = parentTask;
+        this.status = TaskStatus.OPEN;
     }
 
     //- SECTION :: GET -//
@@ -183,7 +193,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Get Complexity of the task.
+     * Get Complexity of the parentTask.
      * @return Complexity of the Task
      */
     public Complexity getComplexity() {
@@ -191,7 +201,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Get Creator of the task.
+     * Get Creator of the parentTask.
      * @return User that created Task
      */
     public User getCreator() {
@@ -199,7 +209,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Get Perfomer of the task.
+     * Get Perfomer of the parentTask.
      * @return User that perform Task
      */
     public User getPerformer() {
@@ -207,7 +217,7 @@ public class Task implements Serializable {
     }
 
     /**
-     * Get Bonus of the task.
+     * Get Bonus of the parentTask.
      * @return Bonus of the Task
      */
     public Bonus getBonus() {
@@ -215,177 +225,193 @@ public class Task implements Serializable {
     }
 
     /**
-     * Get Flag if task has sub tasks.
-     * @return Boolean 'true' if task has sub tasks
+     * Get Flag if parentTask has sub tasks.
+     * @return Boolean 'true' if parentTask has sub tasks
      */
     public Boolean getHasSubtasks() {
         return hasSubtasks;
     }
 
     /**
-     * Get Parent task of the task.
-     * @return Task which is parent for the current task
+     * Get Parent parentTask of the parentTask.
+     * @return Task which is parent for the current parentTask
      */
-    public Task getTask() {
-        return task;
+    public Task getParentTask() {
+        return parentTask;
     }
 
     /**
-     * Get Step of the task.
-     * @return Integer value step of the current task
+     * Get Step of the parentTask.
+     * @return Integer value step of the current parentTask
      */
     public Integer getStep() {
         return step;
     }
 
     /**
-     * Get Description of the task.
-     * @return String description of the task
+     * Get Description of the parentTask.
+     * @return String description of the parentTask
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Get Prize of the task.
-     * @return Integer prize of the task
+     * Get Prize of the parentTask.
+     * @return Integer prize of the parentTask
      */
     public Integer getPrize() {
         return prize;
     }
 
     /**
-     * Get Close date of the task.
-     * @return LocalDateTime close date of the task
+     * Get Close date of the parentTask.
+     * @return LocalDateTime close date of the parentTask
      */
     public LocalDateTime getCloseTo() {
         return closeTo;
     }
 
     /**
-     * Get Create date of the task.
-     * @return LocalDateTime create date of the task
+     * Get Create date of the parentTask.
+     * @return LocalDateTime create date of the parentTask
      */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
+    /**
+     * Get parentTask's status.
+     * @return parentTask's status
+     */
+    public TaskStatus getStatus() {
+        return status;
+    }
+
     //- SECTION :: SET -//
 
     /**
-     * Set ID for task.
+     * Set ID for parentTask.
      *
-     * @param id ID of the task
+     * @param id ID of the parentTask
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Set Task Type for task.
+     * Set Task Type for parentTask.
      *
-     * @param taskType task type of the task
+     * @param taskType parentTask type of the parentTask
      */
     public void setTaskType(TaskType taskType) {
         this.taskType = taskType;
     }
 
     /**
-     * Set Complexity for task.
+     * Set Complexity for parentTask.
      *
-     * @param complexity complexity of the task
+     * @param complexity complexity of the parentTask
      */
     public void setComplexity(Complexity complexity) {
         this.complexity = complexity;
     }
 
     /**
-     * Set Creator for task.
+     * Set Creator for parentTask.
      *
-     * @param creator User creator of the task
+     * @param creator User creator of the parentTask
      */
     public void setCreator(User creator) {
         this.creator = creator;
     }
 
     /**
-     * Set Performer for task.
+     * Set Performer for parentTask.
      *
-     * @param performer User performer of the task
+     * @param performer User performer of the parentTask
      */
     public void setPerformer(User performer) {
         this.performer = performer;
     }
 
     /**
-     * Set Bonus for task.
+     * Set Bonus for parentTask.
      *
-     * @param bonus Bonus of the task
+     * @param bonus Bonus of the parentTask
      */
     public void setBonus(Bonus bonus) {
         this.bonus = bonus;
     }
 
     /**
-     * Set Flag if task has sub tasks.
+     * Set Flag if parentTask has sub tasks.
      *
-     * @param hasSubtasks Boolean flag of the task
+     * @param hasSubtasks Boolean flag of the parentTask
      */
     public void setHasSubtasks(Boolean hasSubtasks) {
         this.hasSubtasks = hasSubtasks;
     }
 
     /**
-     * Set Parent task.
+     * Set Parent parentTask.
      *
-     * @param task parent Task
+     * @param parentTask parent Task
      */
-    public void setTask(Task task) {
-        this.task = task;
+    public void setParentTask(Task parentTask) {
+        this.parentTask = parentTask;
     }
 
     /**
-     * Set Step for task.
+     * Set Step for parentTask.
      *
-     * @param step Step of the task
+     * @param step Step of the parentTask
      */
     public void setStep(Integer step) {
         this.step = step;
     }
 
     /**
-     * Set Description for task.
+     * Set Description for parentTask.
      *
-     * @param description of the task
+     * @param description of the parentTask
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Set Prize for task.
+     * Set Prize for parentTask.
      *
-     * @param prize of the task
+     * @param prize of the parentTask
      */
     public void setPrize(Integer prize) {
         this.prize = prize;
     }
 
     /**
-     * Set Close date for task.
+     * Set Close date for parentTask.
      *
-     * @param closeTo of the task
+     * @param closeTo of the parentTask
      */
     public void setCloseTo(LocalDateTime closeTo) {
         this.closeTo = closeTo;
     }
 
     /**
-     * Set Create date for task.
+     * Set Create date for parentTask.
      *
-     * @param createdAt of the task
+     * @param createdAt of the parentTask
      */
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    /**
+     * set parentTask's status.
+     * @param status parentTask's status
+     */
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 }

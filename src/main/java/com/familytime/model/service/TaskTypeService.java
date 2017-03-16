@@ -22,19 +22,19 @@ public interface TaskTypeService {
     //- SECTION :: MAIN -//
 
     /**
-     * Find task type by ID
+     * Find parentTask type by ID
      * @return TaskType found.
      */
     public TaskType findById(Long id);
 
     /**
-     * Find all existed task type
-     * @return List < TaskType > List of task types.
+     * Find all existed parentTask type
+     * @return List < TaskType > List of parentTask types.
      */
     public List<TaskType> findAll();
 
     /**
-     * Find task types for page.
+     * Find parentTask types for page.
      *
      * @param page Number of page for return.
      * @param limit Count items per page.
@@ -44,33 +44,33 @@ public interface TaskTypeService {
     public List<TaskType> findAll(int page, int limit);
 
     /**
-     * Find all existed task types by user's family.
+     * Find all existed parentTask types by user's family.
      *
      * @param family - User's family.
      *
-     * @return List < TaskType > List of task types.
+     * @return List < TaskType > List of parentTask types.
      */
     public List<TaskType> findByFamily(Family family);
     /**
-     * Create new task type.
+     * Create new parentTask type.
      * 
-     * @param taskType Data for creating new task type
+     * @param taskType Data for creating new parentTask type
      * @return TaskType created
      */
     public TaskType create(TaskType taskType);
 
     /**
-     * Updated existed task type.
+     * Updated existed parentTask type.
      * 
-     * @param taskType Data for updated task type
+     * @param taskType Data for updated parentTask type
      * @return TaskType updated
      */
     public TaskType update(TaskType taskType);
 
     /**
-     * Delete existed task type.
+     * Delete existed parentTask type.
      *
-     * @param id Identificator of task type
+     * @param id Identificator of parentTask type
      */
     public void delete(Long id);
 }

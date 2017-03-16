@@ -27,4 +27,11 @@ public interface SecurityService {
      * @return Family of logged user.
      */
     public Family getFamilyOfLoggedUser();
+
+    /**
+     * Get logged user.
+     *
+     * @return User - logged user.
+     */
+    public com.familytime.model.entity.User getLoggedUser();
 }

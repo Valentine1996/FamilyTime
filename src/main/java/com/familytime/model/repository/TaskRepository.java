@@ -5,12 +5,24 @@
 package com.familytime.model.repository;
 
 import com.familytime.model.entity.Task;
+import com.familytime.model.entity.TaskStatus;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * Interface for work with persistence layout
  * @version 1.0
  */
 public interface TaskRepository extends JpaRepository<Task, Long> {
+
+    @Query("SELECT t from Task t " +
+            "WHERE t.performer.id = :performerId " +
+            "AND t.parentTask IS NULL " +
+            "AND t.status = :status")
+    public List<Task> findPerformerHeadTasks(@Param("performerId") Long performerId,
+                                             @Param("status") TaskStatus status);
 }

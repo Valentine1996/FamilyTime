@@ -35,7 +35,7 @@ public class TaskTypeServiceImpl implements TaskTypeService {
     TaskTypeRepository taskTypeRepository;
 
     /**
-     * Find task type by ID
+     * Find parentTask type by ID
      *
      * @param id Identification
      * @return TaskType found.
@@ -47,9 +47,9 @@ public class TaskTypeServiceImpl implements TaskTypeService {
 
     
     /**
-     * Find all existed task type.
+     * Find all existed parentTask type.
      *
-     * @return List < TaskType > List of task types.
+     * @return List < TaskType > List of parentTask types.
      */
     @Override
     public List<TaskType> findAll() {
@@ -57,7 +57,7 @@ public class TaskTypeServiceImpl implements TaskTypeService {
     }
 
     /**
-     * Find task types for page.
+     * Find parentTask types for page.
      *
      * @param page  Number of page for return.
      * @param limit Count items per page.
@@ -75,11 +75,11 @@ public class TaskTypeServiceImpl implements TaskTypeService {
     }
 
     /**
-     * Find all existed task types by user's family.
+     * Find all existed parentTask types by user's family.
      *
      * @param family - User's family.
      *
-     * @return List < TaskType > List of task types.
+     * @return List < TaskType > List of parentTask types.
      */
     @Override
     public List<TaskType> findByFamily(Family family) {
@@ -87,9 +87,9 @@ public class TaskTypeServiceImpl implements TaskTypeService {
     }
 
     /**
-     * Create new task type.
+     * Create new parentTask type.
      *
-     * @param taskType Data for creating new task type
+     * @param taskType Data for creating new parentTask type
      * @return TaskType created
      */
     @Override
@@ -98,9 +98,9 @@ public class TaskTypeServiceImpl implements TaskTypeService {
     }
 
     /**
-     * Updated existed task type.
+     * Updated existed parentTask type.
      *
-     * @param taskType Data for updated task type
+     * @param taskType Data for updated parentTask type
      * @return TaskType updated
      */
     @Override
@@ -109,9 +109,9 @@ public class TaskTypeServiceImpl implements TaskTypeService {
     }
 
     /**
-     * Delete existed task type.
+     * Delete existed parentTask type.
      *
-     * @param id Identification of task type
+     * @param id Identification of parentTask type
      */
     @Override
     public void delete(Long id) {
