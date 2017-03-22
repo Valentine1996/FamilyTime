@@ -5,9 +5,9 @@
 package com.familytime.model.entity;
 
 import com.familytime.model.serializer.JsonDataTimeSerializer;
-import com.familytime.model.serializer.JsonDateSerializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,7 +26,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect table tast from persistence layout
+ * Class for reflect table parentTask from persistence layout
  *
  * @version 1.0
  */
@@ -61,29 +63,34 @@ public class Task implements Serializable {
     @JoinColumn(name = "performer_id")
     protected User performer;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "bonus_id")
     protected Bonus bonus;
 
     @NotNull
-    @Value("false")
     @Column(name = "has_subtasks")
+    @Value("false")
     protected Boolean hasSubtasks;
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    protected Task task;
+    protected Task parentTask;
 
     @Column(name = "step")
     protected Integer step;
 
+    @NotBlank
     @Column(name = "description")
     protected String description;
 
     @NotNull
     @Column(name = "prize")
     protected Integer prize;
+
+    @NotNull
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    protected TaskStatus status;
 
     @NotNull
     @JsonSerialize(using = JsonDataTimeSerializer.class)
@@ -131,6 +138,8 @@ public class Task implements Serializable {
         this.description = description;
         this.prize = prize;
         this.closeTo = closeTo;
+        this.hasSubtasks = false;
+        this.status = TaskStatus.OPEN;
     }
 
     /**
@@ -145,11 +154,11 @@ public class Task implements Serializable {
      * @param description Task's description
      * @param prize Task's prize
      * @param closeTo Task's close date
-     * @param task Task's parent
+     * @param parentTask Task's parent
      */
     public Task(TaskType taskType, Complexity complexity, User creator, User performer,
                 Bonus bonus, Integer step, String description, Integer prize, LocalDateTime closeTo,
-                Task task) {
+                Task parentTask) {
 
         this.taskType = taskType;
         this.complexity = complexity;
@@ -161,7 +170,8 @@ public class Task implements Serializable {
         this.prize = prize;
         this.closeTo = closeTo;
         this.hasSubtasks = true;
-        this.task = task;
+        this.parentTask = parentTask;
+        this.status = TaskStatus.OPEN;
     }
 
     //- SECTION :: GET -//
@@ -226,8 +236,8 @@ public class Task implements Serializable {
      * Get Parent task of the task.
      * @return Task which is parent for the current task
      */
-    public Task getTask() {
-        return task;
+    public Task getParentTask() {
+        return parentTask;
     }
 
     /**
@@ -268,6 +278,14 @@ public class Task implements Serializable {
      */
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    /**
+     * Get task's status.
+     * @return task's status
+     */
+    public TaskStatus getStatus() {
+        return status;
     }
 
     //- SECTION :: SET -//
@@ -338,10 +356,10 @@ public class Task implements Serializable {
     /**
      * Set Parent task.
      *
-     * @param task parent Task
+     * @param parentTask parent Task
      */
-    public void setTask(Task task) {
-        this.task = task;
+    public void setParentTask(Task parentTask) {
+        this.parentTask = parentTask;
     }
 
     /**
@@ -387,5 +405,13 @@ public class Task implements Serializable {
      */
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    /**
+     * set task's status.
+     * @param status task's status
+     */
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 }

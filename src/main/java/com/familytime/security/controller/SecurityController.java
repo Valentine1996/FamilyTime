@@ -119,9 +119,6 @@ public class SecurityController {
         return null;
     }
 
-    /// *** Methods     *** ///
-    //- SECTION :: ACTIONS -//
-
     /**
      * Registration a new user by parent.
      *
@@ -186,6 +183,28 @@ public class SecurityController {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
         }
 
+        return null;
+    }
+
+    /**
+     * Get logged user.
+     *
+     * @param response Use for work with HTTP.
+     * @return User - Logged user.
+     */
+    @RequestMapping( value = "/loggedUser", method = RequestMethod.GET)
+    @ResponseBody
+    public User internalRegistrationAction(
+            HttpServletResponse response
+    ) {
+        response.setStatus(HttpServletResponse.SC_OK);
+
+        User user = securityService.getLoggedUser();
+
+        if (user != null) {
+            return user;
+        }
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
         return null;
     }
 }

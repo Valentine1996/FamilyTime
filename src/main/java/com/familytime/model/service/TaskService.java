@@ -5,6 +5,8 @@
 package com.familytime.model.service;
 
 import com.familytime.model.entity.Task;
+import com.familytime.model.entity.TaskStatus;
+import com.familytime.model.entity.User;
 
 import java.util.List;
 
@@ -25,22 +27,31 @@ public interface TaskService {
     public List<Task> findAll();
 
     /**
-     * Create new task.
-     * @param task Data for creating new task
+     * Find head tasks by performer and status.
+     *
+     * @param performerId Performer Id
+     * @param taskStatus task status
+     * @return List < Task > List of tasks
+     */
+    public List<Task> findHeadTasksByPerformerAndStatus(Long performerId, TaskStatus taskStatus);
+
+    /**
+     * Create new parentTask.
+     * @param task Data for creating new parentTask
      * @return Task created
      */
     public Task create(Task task);
 
     /**
-     * Updated existed task.
-     * @param task Data for updated task
+     * Updated existed parentTask.
+     * @param task Data for updated parentTask
      * @return Task updated
      */
     public Task update(Task task);
 
     /**
-     * Delete existed task.
-     * @param id identificator for delete task
+     * Delete existed parentTask.
+     * @param id identificator for delete parentTask
      */
     public void delete(Long id);
 }

@@ -245,7 +245,7 @@ public class InternalRegistrationForm {
     /**
      * Set user's parent status.
      *
-     * @param isParent Parent Status
+     * @param isParent Parent TaskStatus
      */
     public void setIsParent(Boolean isParent) {
         this.isParent = isParent;

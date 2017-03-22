@@ -5,6 +5,9 @@
 package com.familytime.model.service.implementation;
 
 import com.familytime.model.entity.Task;
+import com.familytime.model.entity.TaskStatus;
+import com.familytime.model.entity.TaskType;
+import com.familytime.model.entity.User;
 import com.familytime.model.repository.TaskRepository;
 import com.familytime.model.service.TaskService;
 
@@ -14,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Implementation of task service.
+ * Implementation of parentTask service.
  *
  * @version 1.0
  */
@@ -25,7 +28,7 @@ public class TaskServiceImpl implements TaskService{
     TaskRepository taskRepository;
 
     /**
-     * Find task by ID.
+     * Find parentTask by ID.
      * @param id unique identificatos
      * @return Task found
      */
@@ -44,9 +47,21 @@ public class TaskServiceImpl implements TaskService{
     }
 
     /**
-     * Create task.
+     * Find head tasks by performer and status.
+     *
+     * @param performerId Performer Id
+     * @param taskStatus task status
+     * @return List < Task > List of tasks
+     */
+    @Override
+    public List<Task> findHeadTasksByPerformerAndStatus(Long performerId, TaskStatus taskStatus) {
+        return this.taskRepository.findPerformerHeadTasks(performerId, taskStatus);
+    }
+
+    /**
+     * Create parentTask.
      * @param task Task for create
-     * @return Task created task
+     * @return Task created parentTask
      */
     @Override
     public Task create(Task task) {
@@ -54,9 +69,9 @@ public class TaskServiceImpl implements TaskService{
     }
 
     /**
-     * Update task.
+     * Update parentTask.
      * @param task Task for update
-     * @return Task updated task
+     * @return Task updated parentTask
      */
     @Override
     public Task update(Task task) {
@@ -64,8 +79,8 @@ public class TaskServiceImpl implements TaskService{
     }
 
     /**
-     * Delete existed task.
-     * @param id unique identificator task
+     * Delete existed parentTask.
+     * @param id unique identificator parentTask
      */
     @Override
     public void delete(Long id) {

@@ -96,14 +96,14 @@ public class TaskType implements Serializable {
 
     /**
      * Get ID of the task_type.
-     * @return Long ID of the task
+     * @return Long ID of the parentTask
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Get family of the task type.
+     * Get family of the parentTask type.
      * @return Family Task's family
      */
     public Family getFamily() {
@@ -111,7 +111,7 @@ public class TaskType implements Serializable {
     }
 
     /**
-     * Get short name of the task type.
+     * Get short name of the parentTask type.
      * @return String Task's short name
      */
     public String getShortName() {
@@ -119,7 +119,7 @@ public class TaskType implements Serializable {
     }
 
     /**
-     * Get description of the task type.
+     * Get description of the parentTask type.
      * @return String Tasks's description
      */
     public String getDescription() {
@@ -129,36 +129,36 @@ public class TaskType implements Serializable {
     //- SECTION :: SET -//
 
     /**
-     * Set ID of the task type.
+     * Set ID of the parentTask type.
      *
-     * @param id ID of the task type
+     * @param id ID of the parentTask type
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Set family of the task type.
+     * Set family of the parentTask type.
      *
-     * @param family ID of the task type
+     * @param family ID of the parentTask type
      */
     public void setFamily(Family family) {
         this.family = family;
     }
 
     /**
-     * Set short name of the task type.
+     * Set short name of the parentTask type.
      *
-     * @param shortName of the task type
+     * @param shortName of the parentTask type
      */
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
     /**
-     * Set description of the task type.
+     * Set description of the parentTask type.
      *
-     * @param description of the task type
+     * @param description of the parentTask type
      */
     public void setDescription(String description) {
         this.description = description;

@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * Form for task type.
+ * Form for parentTask type.
  *
  * @version 1.0
  */
@@ -37,7 +37,7 @@ public class TaskTypeForm {
     //- SECTION :: GET -//
 
     /**
-     * Get short name of task type.
+     * Get short name of parentTask type.
      *
      * @return String Task type.
      */
@@ -46,7 +46,7 @@ public class TaskTypeForm {
     }
 
     /**
-     * Get description of task type.
+     * Get description of parentTask type.
      *
      * @return String Task's type description.
      */
@@ -57,18 +57,18 @@ public class TaskTypeForm {
     //- SECTION :: SET -//
 
     /**
-     * Set short name of the task type.
+     * Set short name of the parentTask type.
      *
-     * @param shortName of the task type.
+     * @param shortName of the parentTask type.
      */
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
     /**
-     * Set description of the task type.
+     * Set description of the parentTask type.
      *
-     * @param description of the task type.
+     * @param description of the parentTask type.
      */
     public void setDescription(String description) {
         this.description = description;

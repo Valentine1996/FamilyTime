@@ -110,9 +110,9 @@ CREATE TABLE user_role(
 ) ENGINE = InnoDB CHARACTER SET = utf8;
 
 /** *** *** *** *** *** *** *** *** *** *
- *  task type
+ *  parentTask type
  *  --- --- --- --- --- --- --- --- --- *
- * List of task types of some family
+ * List of parentTask types of some family
 */
 CREATE TABLE task_type(
   id              BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
@@ -178,7 +178,7 @@ CREATE TABLE complexity(
   ENGINE = InnoDB CHARACTER SET = utf8;
 
 /** *** *** *** *** *** *** *** *** *** *
- * task
+ * Task
  *  --- --- --- --- --- --- --- --- --- *
  * List of tasks
 */
@@ -189,6 +189,8 @@ CREATE TABLE task(
 
   task_type_id		BIGINT( 20 ) NOT NULL,
 
+  bonus_id        BIGINT( 20 ),
+
   complexity_id   BIGINT( 20 ) NOT NULL,
 
   creator_id 			BIGINT( 20 ) NOT NULL,
@@ -198,6 +200,8 @@ CREATE TABLE task(
   has_subtasks	  BOOLEAN NOT NULL DEFAULT FALSE,
 
   parent_id				BIGINT( 20 ),
+
+  status          VARCHAR( 10 ) NOT NULL,
 
   step						INTEGER(2),
 
@@ -227,7 +231,11 @@ CREATE TABLE task(
     ON UPDATE CASCADE
     ON DELETE RESTRICT,
 
-  FOREIGN KEY( parent_id ) REFERENCES task( id )
+  FOREIGN KEY( parent_id ) REFERENCES parentTask( id )
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
+
+  FOREIGN KEY( bonus_id ) REFERENCES bonus( id )
     ON UPDATE CASCADE
     ON DELETE RESTRICT
 )
