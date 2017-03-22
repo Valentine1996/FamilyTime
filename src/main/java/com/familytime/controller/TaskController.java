@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -114,38 +115,22 @@ public class TaskController {
      * Get list of head tasks for logged person as performer.
      * @return List of head tasks for logged person as performer.
      */
-    @RequestMapping(value = "openHeadTasks", method = RequestMethod.GET)
+    @RequestMapping(value = "/headTasks", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<Task> findOpenTasksForLoggedPersonAsPerformer() {
+    public List<Task> findOpenTasksForLoggedPersonAsPerformer(
+            @RequestParam
+            String status
+    ) {
         try {
             //- Get logged person-//
             User loggedUser = securityService.getLoggedUser();
 
-            //- Get tasks -/
-            return this.taskService.findHeadTasksByPerformerAndStatus(
-                    loggedUser.getId(), TaskStatus.OPEN);
-
-        } catch (DataIntegrityViolationException e) {
-            return  null;
-        }
-    }
-
-    /**
-     * Get list of head tasks for logged person as performer.
-     * @return List of head tasks for logged person as performer.
-     */
-    @RequestMapping(value = "solvedHeadTasks", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<Task> findSolvedTasksForLoggedPersonAsPerformer() {
-        try {
-            //- Get logged person-//
-            User loggedUser = securityService.getLoggedUser();
+            TaskStatus taskStatus = TaskStatus.valueOf(status);
 
             //- Get tasks -/
             return this.taskService.findHeadTasksByPerformerAndStatus(
-                    loggedUser.getId(), TaskStatus.SOLVED);
+                    loggedUser.getId(), taskStatus);
 
         } catch (DataIntegrityViolationException e) {
             return  null;
@@ -239,6 +224,11 @@ public class TaskController {
             return null;
         }
 
+        if (taskForm.getStatus() == null) {
+            response.setStatus( HttpStatus.BAD_REQUEST.value() );
+            return null;
+        }
+
         //Update task
         try {
             //- Get bonus -/
@@ -256,6 +246,7 @@ public class TaskController {
             //- Get performer-//
             User performer = this.userService.find(taskForm.getPerformerId());
 
+            TaskStatus status = TaskStatus.valueOf(taskForm.getStatus());
 
             //Set new data
             taskOrigin.setTaskType(taskType);
@@ -266,12 +257,12 @@ public class TaskController {
             taskOrigin.setHasSubtasks(false);
             taskOrigin.setDescription(taskForm.getDescription());
             taskOrigin.setPrize(taskForm.getPrize());
-            taskOrigin.setStatus(TaskStatus.OPEN);
+            taskOrigin.setStatus(status);
             taskOrigin.setCloseTo(taskForm.getCloseTo());
 
             //- Success. Return updated task -//
             return this.taskService.update(taskOrigin);
-        } catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException | IllegalArgumentException e ) {
             //- Failure. Can not to update task -//
             response.setStatus( HttpStatus.CONFLICT.value() );
         }

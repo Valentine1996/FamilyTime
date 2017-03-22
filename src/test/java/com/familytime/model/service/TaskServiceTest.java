@@ -88,7 +88,6 @@ public class TaskServiceTest extends AbstractServiceTest{
 
         Task createdTask = taskService.create(task);
 
-
-
+        taskService.delete(createdTask.getId());
     }
 }

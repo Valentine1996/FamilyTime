@@ -35,6 +35,8 @@ public class TaskForm {
     @NotNull
     protected LocalDateTime closeTo;
 
+    protected String status;
+
     /**
      * Default constructor.
      */
@@ -68,7 +70,7 @@ public class TaskForm {
 
 
     /**
-     * Get parentTask type ID.
+     * Get task type ID.
      * @return Long - ID of the parentTask type.
      */
     public Long getTaskTypeId() {
@@ -76,7 +78,7 @@ public class TaskForm {
     }
 
     /**
-     * Get complexity ID.
+     * Get task ID.
      * @return Long - ID of the complexity.
      */
     public Long getComplexityId() {
@@ -84,7 +86,7 @@ public class TaskForm {
     }
 
     /**
-     * Get performer ID.
+     * Get task ID.
      * @return Long - ID of the performer.
      */
     public Long getPerformerId() {
@@ -92,7 +94,7 @@ public class TaskForm {
     }
 
     /**
-     * Get bonus ID.
+     * Get task ID.
      * @return Long - ID of the bonus.
      */
     public Long getBonusId() {
@@ -100,7 +102,7 @@ public class TaskForm {
     }
 
     /**
-     * Get parentTask ID.
+     * Get task ID.
      * @return Long - parentTask ID.
      */
     public Long getTaskId() {
@@ -108,7 +110,7 @@ public class TaskForm {
     }
 
     /**
-     * Get parentTask's description.
+     * Get task's description.
      * @return String - description.
      */
     public String getDescription() {
@@ -116,7 +118,7 @@ public class TaskForm {
     }
 
     /**
-     * Get parentTask's price.
+     * Get task's price.
      * @return Integer - price.
      */
     public Integer getPrize() {
@@ -131,12 +133,20 @@ public class TaskForm {
         return closeTo;
     }
 
+    /**
+     * Get task's status.
+     * @return String - task's status.
+     */
+    public String getStatus() {
+        return status;
+    }
+
     //- SECTION :: SET -//
 
 
     /**
-     * Set parentTask type ID.
-     * @param taskTypeId - parentTask type ID.
+     * Set task type ID.
+     * @param taskTypeId - task type ID.
      */
     public void setTaskTypeId(Long taskTypeId) {
         this.taskTypeId = taskTypeId;
@@ -175,16 +185,16 @@ public class TaskForm {
     }
 
     /**
-     * Set parentTask's description.
-     * @param description - parentTask's description.
+     * Set task's description.
+     * @param description - task's description.
      * */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Set parentTask's prize.
-     * @param prize - parentTask's prize.
+     * Set task's prize.
+     * @param prize - task's prize.
      */
     public void setPrize(Integer prize) {
         this.prize = prize;
@@ -196,5 +206,14 @@ public class TaskForm {
      */
     public void setCloseTo(LocalDateTime closeTo) {
         this.closeTo = closeTo;
+    }
+
+    /**
+     * Set task's status
+     *
+     * @param status - Task's status.
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
