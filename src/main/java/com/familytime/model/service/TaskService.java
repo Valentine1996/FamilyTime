@@ -36,6 +36,15 @@ public interface TaskService {
     public List<Task> findHeadTasksByPerformerAndStatus(Long performerId, TaskStatus taskStatus);
 
     /**
+     * Find head tasks by creator and status.
+     *
+     * @param creatorId Performer Id
+     * @param taskStatus task status
+     * @return List < Task > List of tasks
+     */
+    public List<Task> findHeadTasksByCreatorAndStatus(Long creatorId, TaskStatus taskStatus);
+
+    /**
      * Create new parentTask.
      * @param task Data for creating new parentTask
      * @return Task created
