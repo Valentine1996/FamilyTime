@@ -23,6 +23,13 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             "WHERE t.performer.id = :performerId " +
             "AND t.parentTask IS NULL " +
             "AND t.status = :status")
-    public List<Task> findPerformerHeadTasks(@Param("performerId") Long performerId,
+    public List<Task> findHeadTasksByPerformerAndStatus(@Param("performerId") Long performerId,
+                                             @Param("status") TaskStatus status);
+
+    @Query("SELECT t from Task t " +
+            "WHERE t.creator.id = :creatorId " +
+            "AND t.parentTask IS NULL " +
+            "AND t.status = :status")
+    public List<Task> findHeadTasksByCreatorAndStatus(@Param("creatorId") Long performerId,
                                              @Param("status") TaskStatus status);
 }

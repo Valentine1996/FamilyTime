@@ -63,6 +63,17 @@ public class TaskServiceTest extends AbstractServiceTest{
     }
 
     /**
+     * Checking finding all open head tasks of performer.
+     */
+    @Test
+    public void testGettingOpenHeadTasksByCreator() {
+
+        List<Task> result = taskService.findHeadTasksByCreatorAndStatus(1L, TaskStatus.OPEN);
+
+        Assert.assertEquals(2,result.size());
+    }
+
+    /**
      * Checking finding all pending head tasks of performer.
      */
     @Test

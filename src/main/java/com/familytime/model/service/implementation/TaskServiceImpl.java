@@ -55,7 +55,19 @@ public class TaskServiceImpl implements TaskService{
      */
     @Override
     public List<Task> findHeadTasksByPerformerAndStatus(Long performerId, TaskStatus taskStatus) {
-        return this.taskRepository.findPerformerHeadTasks(performerId, taskStatus);
+        return this.taskRepository.findHeadTasksByPerformerAndStatus(performerId, taskStatus);
+    }
+
+    /**
+     * Find head tasks by creator and status.
+     *
+     * @param creatorId Performer Id
+     * @param taskStatus task status
+     * @return List < Task > List of tasks
+     */
+    @Override
+    public List<Task> findHeadTasksByCreatorAndStatus(Long creatorId, TaskStatus taskStatus) {
+        return this.taskRepository.findHeadTasksByCreatorAndStatus(creatorId,taskStatus);
     }
 
     /**

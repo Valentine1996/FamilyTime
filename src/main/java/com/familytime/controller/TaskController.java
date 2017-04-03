@@ -115,10 +115,10 @@ public class TaskController {
      * Get list of head tasks for logged person as performer.
      * @return List of head tasks for logged person as performer.
      */
-    @RequestMapping(value = "/headTasks", method = RequestMethod.GET)
+    @RequestMapping(value = "/headPerformerTasks", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<Task> findOpenTasksForLoggedPersonAsPerformer(
+    public List<Task> findTasksForLoggedPersonAsPerformerByStatus(
             @RequestParam
             String status
     ) {
@@ -130,6 +130,32 @@ public class TaskController {
 
             //- Get tasks -/
             return this.taskService.findHeadTasksByPerformerAndStatus(
+                    loggedUser.getId(), taskStatus);
+
+        } catch (DataIntegrityViolationException e) {
+            return  null;
+        }
+    }
+
+    /**
+     * Get list of head tasks for logged person as creator.
+     * @return List of head tasks for logged person as creator.
+     */
+    @RequestMapping(value = "/headCreatorTasks", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<Task> findOpenTasksForLoggedPersonAsCreator(
+            @RequestParam
+            String status
+    ) {
+        try {
+            //- Get logged person-//
+            User loggedUser = securityService.getLoggedUser();
+
+            TaskStatus taskStatus = TaskStatus.valueOf(status);
+
+            //- Get tasks -/
+            return this.taskService.findHeadTasksByCreatorAndStatus(
                     loggedUser.getId(), taskStatus);
 
         } catch (DataIntegrityViolationException e) {
@@ -269,6 +295,49 @@ public class TaskController {
 
         return null;
     }
+
+    /**
+     * Request for approval (change task status to pending).
+     * @param response    Use for work with HTTP.
+     *
+     * @return Updated task.
+     */
+    @RequestMapping( value = "/{id}", method = RequestMethod.PATCH )
+    @ResponseBody
+    public Task changeTaskStatus(
+            @PathVariable( "id" )
+            Long id,
+
+            @RequestBody
+            String status,
+
+            HttpServletResponse response
+    ) {
+        //- Search origin task -//
+        Task task = this.taskService.findById(id);
+
+        if (task == null) {
+            //- Failure. Task not found -//
+            response.setStatus( HttpStatus.NOT_FOUND.value() );
+            return null;
+        }
+
+        //Update task status
+        try {
+
+            TaskStatus taskStatus = TaskStatus.valueOf(status);
+
+            task.setStatus(taskStatus);
+            //- Success. Return updated task -//
+            return this.taskService.update(task);
+        } catch (DataIntegrityViolationException | IllegalArgumentException e ) {
+            //- Failure. Can not to update task -//
+            response.setStatus( HttpStatus.CONFLICT.value() );
+        }
+
+        return null;
+    }
+
     /**
      * Delete head task.
      *
